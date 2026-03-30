@@ -1,0 +1,1038 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="theme-color" content="#0a0a0f">
+<title>PH Pharmacy Setup Guide</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0a0a0f;
+    --bg2: #111118;
+    --bg3: #18181f;
+    --bg4: #1f1f28;
+    --border: rgba(255,255,255,0.07);
+    --border2: rgba(255,255,255,0.13);
+    --text: #f0f0f5;
+    --muted: #7a7a8a;
+    --muted2: #55555f;
+    --accent: #4ade80;
+    --accent-dim: rgba(74,222,128,0.12);
+    --accent-glow: rgba(74,222,128,0.2);
+    --blue: #60a5fa;
+    --blue-dim: rgba(96,165,250,0.12);
+    --amber: #fbbf24;
+    --amber-dim: rgba(251,191,36,0.12);
+    --red: #f87171;
+    --red-dim: rgba(248,113,113,0.12);
+    --purple: #a78bfa;
+    --purple-dim: rgba(167,139,250,0.12);
+    --gray-dim: rgba(255,255,255,0.05);
+    --radius: 14px;
+    --radius-sm: 8px;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
+
+  html, body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'DM Sans', sans-serif;
+    min-height: 100dvh;
+    overscroll-behavior: none;
+  }
+
+  /* HEADER */
+  .header {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: rgba(10,10,15,0.9);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border-bottom: 1px solid var(--border);
+    padding: 14px 18px 12px;
+  }
+  .header-top {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    margin-bottom: 10px;
+    gap: 10px;
+  }
+  .header-title {
+    font-family: 'Syne', sans-serif;
+    font-size: 18px;
+    font-weight: 800;
+    letter-spacing: -0.3px;
+    color: var(--text);
+    line-height: 1.2;
+  }
+  .header-sub {
+    font-size: 11px;
+    color: var(--muted);
+    margin-top: 3px;
+  }
+  .rph-toggle-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 10px;
+    padding: 8px 10px;
+    background: var(--bg3);
+    border-radius: var(--radius-sm);
+    border: 1px solid var(--border);
+  }
+  .rph-label { font-size: 12px; color: var(--muted); }
+  .toggle-btn {
+    width: 40px;
+    height: 22px;
+    border-radius: 11px;
+    background: var(--bg4);
+    border: 1px solid var(--border2);
+    cursor: pointer;
+    position: relative;
+    transition: background 0.2s;
+    flex-shrink: 0;
+  }
+  .toggle-btn.on { background: var(--accent); border-color: var(--accent); }
+  .toggle-knob {
+    position: absolute;
+    top: 2px;
+    left: 2px;
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    background: var(--muted2);
+    transition: transform 0.2s, background 0.2s;
+  }
+  .toggle-btn.on .toggle-knob { transform: translateX(18px); background: #0a0a0f; }
+  .header-actions {
+    display: flex;
+    gap: 6px;
+    flex-shrink: 0;
+  }
+  .btn-sm {
+    background: var(--bg3);
+    border: 1px solid var(--border2);
+    color: var(--muted);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 11px;
+    padding: 5px 10px;
+    border-radius: 20px;
+    cursor: pointer;
+    white-space: nowrap;
+    transition: all 0.15s;
+  }
+  .btn-sm:active { opacity: 0.6; transform: scale(0.96); }
+
+  /* PROGRESS */
+  .progress-wrap { display: flex; align-items: center; gap: 10px; }
+  .progress-track {
+    flex: 1;
+    height: 4px;
+    background: var(--bg4);
+    border-radius: 4px;
+    overflow: hidden;
+  }
+  .progress-fill {
+    height: 100%;
+    background: var(--accent);
+    border-radius: 4px;
+    transition: width 0.4s cubic-bezier(0.34,1.56,0.64,1);
+    box-shadow: 0 0 8px var(--accent-glow);
+  }
+  .progress-label {
+    font-size: 12px;
+    color: var(--muted);
+    white-space: nowrap;
+    font-variant-numeric: tabular-nums;
+  }
+
+  /* BODY */
+  .body { padding: 0 14px 100px; }
+
+  /* PHASE HEADER */
+  .phase-wrap {
+    padding: 22px 4px 8px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-wrap: wrap;
+  }
+  .phase-pill {
+    font-family: 'Syne', sans-serif;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    padding: 4px 10px;
+    border-radius: 20px;
+    flex-shrink: 0;
+  }
+  .phase-name {
+    font-family: 'Syne', sans-serif;
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--text);
+    flex: 1;
+  }
+  .phase-hint { font-size: 11px; color: var(--muted2); }
+
+  /* QUEST CARD */
+  .quest {
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    margin-bottom: 8px;
+    overflow: hidden;
+    transition: border-color 0.2s, opacity 0.2s;
+  }
+  .quest.done { opacity: 0.45; }
+  .quest.done .quest-title { text-decoration: line-through; color: var(--muted); }
+  .quest-head {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    padding: 13px 13px 11px;
+    cursor: pointer;
+    user-select: none;
+    -webkit-user-select: none;
+  }
+  .quest-head:active { background: var(--bg3); }
+
+  .checkbox {
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    border: 1.5px solid var(--border2);
+    flex-shrink: 0;
+    margin-top: 1px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s;
+    cursor: pointer;
+  }
+  .checkbox.checked {
+    background: var(--accent);
+    border-color: var(--accent);
+    box-shadow: 0 0 10px var(--accent-glow);
+  }
+  .checkbox.checked::after {
+    content: '';
+    display: block;
+    width: 6px;
+    height: 10px;
+    border: 2px solid #0a0a0f;
+    border-top: none;
+    border-left: none;
+    transform: rotate(45deg) translateY(-1px);
+  }
+
+  .quest-content { flex: 1; min-width: 0; }
+  .quest-title {
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--text);
+    line-height: 1.4;
+    transition: color 0.2s;
+  }
+  .quest-tags { display: flex; flex-wrap: wrap; gap: 5px; margin-top: 6px; }
+  .tag {
+    font-size: 10px;
+    font-weight: 500;
+    padding: 2px 8px;
+    border-radius: 20px;
+    letter-spacing: 0.02em;
+  }
+  .tag-daily   { background: rgba(74,222,128,0.13); color: #4ade80; }
+  .tag-once    { background: var(--blue-dim); color: var(--blue); }
+  .tag-weekly  { background: var(--amber-dim); color: var(--amber); }
+  .tag-urgent  { background: var(--red-dim); color: var(--red); }
+  .tag-rph     { background: var(--purple-dim); color: var(--purple); }
+
+  .chevron {
+    font-size: 10px;
+    color: var(--muted2);
+    flex-shrink: 0;
+    margin-top: 4px;
+    transition: transform 0.22s;
+  }
+  .quest.open .chevron { transform: rotate(180deg); }
+
+  .quest-body {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.35s cubic-bezier(0.4,0,0.2,1);
+  }
+  .quest.open .quest-body { max-height: 700px; }
+  .quest-body-inner {
+    padding: 0 13px 13px 47px;
+    border-top: 1px solid var(--border);
+  }
+  .quest-body-inner p {
+    font-size: 13px;
+    color: var(--muted);
+    line-height: 1.65;
+    margin-top: 10px;
+  }
+  .quest-body-inner ul { margin-top: 8px; padding-left: 16px; }
+  .quest-body-inner li {
+    font-size: 13px;
+    color: var(--muted);
+    line-height: 1.8;
+  }
+  .quest-body-inner li strong,
+  .quest-body-inner p strong { color: var(--text); font-weight: 500; }
+  .note {
+    margin-top: 10px;
+    padding: 9px 12px;
+    background: var(--bg4);
+    border-radius: var(--radius-sm);
+    border-left: 2px solid var(--accent);
+    font-size: 12px;
+    color: var(--muted);
+    line-height: 1.6;
+  }
+  .note.blue { border-left-color: var(--blue); }
+  .note.amber { border-left-color: var(--amber); }
+  .note.red { border-left-color: var(--red); }
+
+  /* DIVIDER */
+  .divider { height: 1px; background: var(--border); margin: 4px 0 0; }
+
+  /* FOOTER */
+  .footer {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: rgba(10,10,15,0.95);
+    backdrop-filter: blur(16px);
+    border-top: 1px solid var(--border);
+    padding: 12px 18px 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+  }
+  .footer-text { font-size: 11px; color: var(--muted2); line-height: 1.4; }
+  .footer-text strong { color: var(--muted); font-weight: 500; }
+
+  /* POP ANIM */
+  @keyframes pop { 0%{transform:scale(1)} 50%{transform:scale(1.4)} 100%{transform:scale(1)} }
+  .pop { animation: pop 0.28s ease; }
+
+  /* SCROLLBAR */
+  ::-webkit-scrollbar { width: 3px; }
+  ::-webkit-scrollbar-track { background: transparent; }
+  ::-webkit-scrollbar-thumb { background: var(--bg4); border-radius: 4px; }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="header-top">
+    <div>
+      <div class="header-title">PH Pharmacy Setup Guide</div>
+      <div class="header-sub">Philippines · Step-by-step quest board</div>
+    </div>
+    <div class="header-actions">
+      <button class="btn-sm" onclick="resetDay()">Reset daily</button>
+      <button class="btn-sm" onclick="resetAll()">Reset all</button>
+    </div>
+  </div>
+  <div class="rph-toggle-row">
+    <span class="rph-label">I am a licensed RPh (pharmacist)</span>
+    <button class="toggle-btn" id="rph-toggle" onclick="toggleRph()">
+      <span class="toggle-knob"></span>
+    </button>
+  </div>
+  <div class="progress-wrap">
+    <div class="progress-track"><div class="progress-fill" id="prog"></div></div>
+    <div class="progress-label" id="prog-label">0 / 0</div>
+  </div>
+</div>
+
+<div class="body">
+
+  <!-- PHASE 0: PRE-LICENSE (conditional) -->
+  <div id="phase0-wrap">
+    <div class="phase-wrap">
+      <div class="phase-pill" style="background:var(--purple-dim);color:var(--purple);">Phase 0</div>
+      <div class="phase-name">Before You Have a License</div>
+      <div class="phase-hint">Skip if already licensed</div>
+    </div>
+
+    <div class="quest" id="q0a">
+      <div class="quest-head" onclick="toggleQuest('q0a')">
+        <div class="checkbox" id="cb-q0a" onclick="checkQuest(event,'q0a')"></div>
+        <div class="quest-content">
+          <div class="quest-title">Understand the pharmacist-in-charge (PIC) requirement</div>
+          <div class="quest-tags"><span class="tag tag-once">One-time</span></div>
+        </div>
+        <div class="chevron">▼</div>
+      </div>
+      <div class="quest-body"><div class="quest-body-inner">
+        <p>Philippine law requires every pharmacy to have a licensed pharmacist physically present and in-charge during operating hours. Your options:</p>
+        <ul>
+          <li><strong>Be the PIC yourself</strong> — requires a valid PRC license as a pharmacist (RPh)</li>
+          <li><strong>Hire a licensed RPh as PIC</strong> — they must be present during all operating hours. Part-time is possible but limited.</li>
+          <li><strong>Split-shift PIC arrangement</strong> — two RPhs covering different shifts, both must be licensed and registered with FDA</li>
+        </ul>
+        <div class="note red">A pharmacy operating without a licensed pharmacist present is a major FDA violation and grounds for immediate LTO revocation. This is non-negotiable.</div>
+      </div></div>
+    </div>
+
+    <div class="quest" id="q0b">
+      <div class="quest-head" onclick="toggleQuest('q0b')">
+        <div class="checkbox" id="cb-q0b" onclick="checkQuest(event,'q0b')"></div>
+        <div class="quest-content">
+          <div class="quest-title">Budget for PIC salary if hiring an RPh</div>
+          <div class="quest-tags"><span class="tag tag-once">One-time</span></div>
+        </div>
+        <div class="chevron">▼</div>
+      </div>
+      <div class="quest-body"><div class="quest-body-inner">
+        <p>If you are not a licensed pharmacist, hiring a PIC is a fixed operating cost. Rough market rates in the Philippines (2025–2026):</p>
+        <ul>
+          <li>Entry-level RPh (province / secondary city): ₱18,000–₱25,000/month</li>
+          <li>Entry-level RPh (Metro Manila / major cities): ₱22,000–₱32,000/month</li>
+          <li>Experienced RPh: ₱28,000–₱40,000/month+</li>
+        </ul>
+        <div class="note amber">Factor this into your working capital from day one. Not having a PIC lined up before opening is a common mistake that delays launches.</div>
+      </div></div>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- PHASE 1: LOCATION -->
+  <div class="phase-wrap">
+    <div class="phase-pill" style="background:var(--blue-dim);color:var(--blue);">Phase 1</div>
+    <div class="phase-name">Location Scouting</div>
+    <div class="phase-hint">Until a space is locked</div>
+  </div>
+
+  <div class="quest" id="q1a">
+    <div class="quest-head" onclick="toggleQuest('q1a')">
+      <div class="checkbox" id="cb-q1a" onclick="checkQuest(event,'q1a')"></div>
+      <div class="quest-content">
+        <div class="quest-title">Scout your target area for viable commercial spaces</div>
+        <div class="quest-tags"><span class="tag tag-daily">Daily</span><span class="tag tag-urgent">High priority</span></div>
+      </div>
+      <div class="chevron">▼</div>
+    </div>
+    <div class="quest-body"><div class="quest-body-inner">
+      <p>Walk or drive through your target area and observe:</p>
+      <ul>
+        <li>Vacant commercial ground-floor spaces — note the address or drop a map pin</li>
+        <li>Demand generators nearby: clinics, barangay health centers, hospitals, lying-in centers, dental offices</li>
+        <li>Existing pharmacies — how busy do they look? Are they franchise or independent?</li>
+        <li>Foot traffic quality: are people running errands, or just passing through?</li>
+        <li>Public transport access: jeepney routes, tricycle terminals, or main roads</li>
+      </ul>
+      <div class="note">The best pharmacy locations are within 50–200m of a clinic cluster, hospital outpatient gate, or barangay health center. Prescriptions = guaranteed foot traffic.</div>
+    </div></div>
+  </div>
+
+  <div class="quest" id="q1b">
+    <div class="quest-head" onclick="toggleQuest('q1b')">
+      <div class="checkbox" id="cb-q1b" onclick="checkQuest(event,'q1b')"></div>
+      <div class="quest-content">
+        <div class="quest-title">Check Facebook Marketplace and OLX for commercial spaces for rent</div>
+        <div class="quest-tags"><span class="tag tag-daily">Daily</span></div>
+      </div>
+      <div class="chevron">▼</div>
+    </div>
+    <div class="quest-body"><div class="quest-body-inner">
+      <p>Search: <strong>"commercial space for rent [your city]"</strong> on Facebook Marketplace and OLX.ph.</p>
+      <ul>
+        <li>Ground floor only — upper floors are not allowed for pharmacies</li>
+        <li>Minimum 20 sqm — smaller spaces will fail FDA floor area requirements</li>
+        <li>Screenshot or save promising listings immediately — they disappear fast</li>
+        <li>Message 1–2 landlords even if you're not ready — ask for floor plan and monthly rate</li>
+        <li>Also check your city's local Facebook Buy & Sell groups</li>
+      </ul>
+    </div></div>
+  </div>
+
+  <div class="quest" id="q1c">
+    <div class="quest-head" onclick="toggleQuest('q1c')">
+      <div class="checkbox" id="cb-q1c" onclick="checkQuest(event,'q1c')"></div>
+      <div class="quest-content">
+        <div class="quest-title">Log every space you find in a running tracker</div>
+        <div class="quest-tags"><span class="tag tag-daily">Daily</span></div>
+      </div>
+      <div class="chevron">▼</div>
+    </div>
+    <div class="quest-body"><div class="quest-body-inner">
+      <p>Use a phone note, Google Sheet, or spreadsheet. One row per space with these columns:</p>
+      <ul>
+        <li><strong>Address / landmark</strong> — specific enough to find it again</li>
+        <li><strong>Size estimate</strong> — eyeballed sqm or stated in listing</li>
+        <li><strong>Monthly rent</strong> — if known</li>
+        <li><strong>Nearest demand generator</strong> — clinic name, hospital, health center</li>
+        <li><strong>Nearest competitor pharmacy</strong> — name + estimated distance</li>
+        <li><strong>Status</strong> — Spotted / Inquired / Visited / Rejected / Shortlisted</li>
+      </ul>
+      <div class="note">Update this same day. Memory is unreliable when juggling multiple spaces — the tracker is your external brain.</div>
+    </div></div>
+  </div>
+
+  <div class="quest" id="q1d">
+    <div class="quest-head" onclick="toggleQuest('q1d')">
+      <div class="checkbox" id="cb-q1d" onclick="checkQuest(event,'q1d')"></div>
+      <div class="quest-content">
+        <div class="quest-title">Verify zoning for any shortlisted space</div>
+        <div class="quest-tags"><span class="tag tag-once">One-time per space</span></div>
+      </div>
+      <div class="chevron">▼</div>
+    </div>
+    <div class="quest-body"><div class="quest-body-inner">
+      <p>Before committing to a space, confirm it's zoned for commercial use:</p>
+      <ul>
+        <li><strong>Ask the landlord directly</strong> — "Is this space zoned for commercial/retail?" Most know the answer.</li>
+        <li><strong>City Hall — Zoning / Urban Planning Office</strong> — Bring the address, they can confirm in one visit. No appointment usually needed.</li>
+      </ul>
+      <div class="note red">A pharmacy in a residentially-zoned space will fail the LGU Mayor's Permit step. Verify this early — it can void months of preparation.</div>
+    </div></div>
+  </div>
+
+  <div class="quest" id="q1e">
+    <div class="quest-head" onclick="toggleQuest('q1e')">
+      <div class="checkbox" id="cb-q1e" onclick="checkQuest(event,'q1e')"></div>
+      <div class="quest-content">
+        <div class="quest-title">Physically visit and assess your top 1–2 spaces</div>
+        <div class="quest-tags"><span class="tag tag-once">One-time per space</span></div>
+      </div>
+      <div class="chevron">▼</div>
+    </div>
+    <div class="quest-body"><div class="quest-body-inner">
+      <p>When you visit in person, check:</p>
+      <ul>
+        <li>Actual floor area — use a tape measure or phone AR measure tool</li>
+        <li>Layout: room for dispensing counter, shelving, consultation nook, and a refrigerator?</li>
+        <li>Electrical: at least 3 usable outlets, no obvious hazards — FDA will inspect this</li>
+        <li>Ventilation and natural or artificial lighting — also FDA-inspected</li>
+        <li>Signage visibility — can a passerby read your sign from the road or sidewalk?</li>
+        <li>Lease terms: monthly vs annual, advance + deposit amount, landlord's contact</li>
+        <li>Any existing fit-out you can repurpose (shelving, counters, AC)</li>
+      </ul>
+      <div class="note">Minimum space is ~20 sqm per FDA guidelines. 25–35 sqm is more practical for compliant layout + future growth.</div>
+    </div></div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- PHASE 2: REGULATORY -->
+  <div class="phase-wrap">
+    <div class="phase-pill" style="background:rgba(74,222,128,0.13);color:#4ade80;">Phase 2</div>
+    <div class="phase-name">Regulatory Requirements</div>
+    <div class="phase-hint">Run parallel to Phase 1</div>
+  </div>
+
+  <div class="quest" id="q2a">
+    <div class="quest-head" onclick="toggleQuest('q2a')">
+      <div class="checkbox" id="cb-q2a" onclick="checkQuest(event,'q2a')"></div>
+      <div class="quest-content">
+        <div class="quest-title">Download and read the FDA LTO checklist for drugstores</div>
+        <div class="quest-tags"><span class="tag tag-once">One-time</span></div>
+      </div>
+      <div class="chevron">▼</div>
+    </div>
+    <div class="quest-body"><div class="quest-body-inner">
+      <p>Go to <strong>fda.gov.ph</strong> → Center for Drug Regulation and Research (CDRR) → Licensing → Drugstore LTO.</p>
+      <ul>
+        <li>Download the current checklist — requirements change, always get the live version</li>
+        <li>Read fully once. Don't act yet — just understand what's coming.</li>
+        <li>Key things to note: space requirements, equipment list, pharmacist documentation</li>
+        <li>Save the PDF in a dedicated "Pharmacy Permits" folder</li>
+      </ul>
+      <div class="note blue">The FDA calls it a "drugstore" LTO, not "pharmacy." Use that term when searching. Also note: LTO has initial and annual renewal requirements — understand both.</div>
+    </div></div>
+  </div>
+
+  <div class="quest" id="q2b">
+    <div class="quest-head" onclick="toggleQuest('q2b')">
+      <div class="checkbox" id="cb-q2b" onclick="checkQuest(event,'q2b')"></div>
+      <div class="quest-content">
+        <div class="quest-title">Register your business name with DTI</div>
+        <div class="quest-tags"><span class="tag tag-once">One-time</span></div>
+      </div>
+      <div class="chevron">▼</div>
+    </div>
+    <div class="quest-body"><div class="quest-body-inner">
+      <p>For sole proprietorship, register at <strong>bnrs.dti.gov.ph</strong> (can be done fully online).</p>
+      <ul>
+        <li>Check name availability first</li>
+        <li>Choose <strong>Regional scope</strong> to cover your province and nearby areas (₱500–2,000 fee)</li>
+        <li>Download and print the Certificate of Business Name Registration — required for LGU permits</li>
+      </ul>
+      <p style="margin-top:10px;">For partnerships or corporations, register with the <strong>SEC</strong> instead. This adds complexity and cost but may be worth it for larger capital setups or multiple owners.</p>
+      <div class="note amber">If going franchise, confirm whether the franchisor handles the business name registration or if you need to do it independently.</div>
+    </div></div>
+  </div>
+
+  <div class="quest" id="q2c">
+    <div class="quest-head" onclick="toggleQuest('q2c')">
+      <div class="checkbox" id="cb-q2c" onclick="checkQuest(event,'q2c')"></div>
+      <div class="quest-content">
+        <div class="quest-title">Compile your master documents folder</div>
+        <div class="quest-tags"><span class="tag tag-once">One-time</span></div>
+      </div>
+      <div class="chevron">▼</div>
+    </div>
+    <div class="quest-body"><div class="quest-body-inner">
+      <p>Every permit application will ask for overlapping documents. Prepare physical and digital copies of:</p>
+      <ul>
+        <li>DTI Certificate of Business Name Registration</li>
+        <li>PRC License of the pharmacist-in-charge (yours or your hired RPh)</li>
+        <li>PRC Registration — check renewal date, it must be current</li>
+        <li>Valid government IDs — at least 2 types</li>
+        <li>NBI Clearance — get a fresh one (many applications require recent issuance)</li>
+        <li>Passport-size photos — bring 6+ copies (different agencies ask for different sizes)</li>
+        <li>Proof of business address: lease contract or landlord's authorization letter</li>
+      </ul>
+      <div class="note">Scan everything into a Google Drive folder labeled "Pharmacy Permits — Master Docs." You will submit these repeatedly to different agencies. Digital backups save repeat trips.</div>
+    </div></div>
+  </div>
+
+  <div class="quest" id="q2d">
+    <div class="quest-head" onclick="toggleQuest('q2d')">
+      <div class="checkbox" id="cb-q2d" onclick="checkQuest(event,'q2d')"></div>
+      <div class="quest-content">
+        <div class="quest-title">Secure LGU permits (once location is confirmed)</div>
+        <div class="quest-tags"><span class="tag tag-once">One-time</span></div>
+      </div>
+      <div class="chevron">▼</div>
+    </div>
+    <div class="quest-body"><div class="quest-body-inner">
+      <p>LGU permits are required before you can open. Process these in order:</p>
+      <ul>
+        <li><strong>Barangay Clearance</strong> — from the barangay where your pharmacy is located. Usually the first step.</li>
+        <li><strong>Zoning Clearance</strong> — confirms commercial use. Bring lease contract and floor plan.</li>
+        <li><strong>Sanitary Permit</strong> — from the City/Municipal Health Office. They inspect your space.</li>
+        <li><strong>Fire Safety Inspection Certificate</strong> — Bureau of Fire Protection (BFP). They inspect exits, extinguishers, and fire safety compliance.</li>
+        <li><strong>Mayor's Permit / Business Permit</strong> — from the City / Municipal Hall. This requires all the above to be completed first.</li>
+      </ul>
+      <div class="note amber">Process these in this order — each one feeds the next. Going out of order causes delays. Budget ₱5,000–₱20,000 total for LGU permit fees depending on your city.</div>
+    </div></div>
+  </div>
+
+  <div class="quest" id="q2e">
+    <div class="quest-head" onclick="toggleQuest('q2e')">
+      <div class="checkbox" id="cb-q2e" onclick="checkQuest(event,'q2e')"></div>
+      <div class="quest-content">
+        <div class="quest-title">Register with BIR</div>
+        <div class="quest-tags"><span class="tag tag-once">One-time</span></div>
+      </div>
+      <div class="chevron">▼</div>
+    </div>
+    <div class="quest-body"><div class="quest-body-inner">
+      <p>Register your pharmacy business with the Bureau of Internal Revenue at your Revenue District Office (RDO):</p>
+      <ul>
+        <li>Register as a business taxpayer (BIR Form 1901 for sole proprietors)</li>
+        <li>Get a Certificate of Registration (COR)</li>
+        <li>Have your official receipts and sales invoices printed by a BIR-accredited printer</li>
+        <li>Register your books of account (journal, ledger, etc.)</li>
+        <li>Know your tax type: likely Percentage Tax (3%) if projected annual gross sales are under the VAT threshold (₱3M as of 2025)</li>
+      </ul>
+      <div class="note blue">You cannot legally issue official receipts without BIR registration. Pharmacies are audited. Get this right from day one.</div>
+    </div></div>
+  </div>
+
+  <div class="quest" id="q2f">
+    <div class="quest-head" onclick="toggleQuest('q2f')">
+      <div class="checkbox" id="cb-q2f" onclick="checkQuest(event,'q2f')"></div>
+      <div class="quest-content">
+        <div class="quest-title">Apply for FDA License to Operate (LTO)</div>
+        <div class="quest-tags"><span class="tag tag-once">One-time</span><span class="tag tag-urgent">Critical gate</span></div>
+      </div>
+      <div class="chevron">▼</div>
+    </div>
+    <div class="quest-body"><div class="quest-body-inner">
+      <p>The FDA LTO is the final gate before you can legally operate as a pharmacy. Apply at fda.gov.ph or at the FDA regional office.</p>
+      <ul>
+        <li>Submit all required documents per the checklist you downloaded earlier</li>
+        <li>Expect a physical inspection of your pharmacy space by an FDA inspector</li>
+        <li>They will check: layout, equipment, storage conditions, temperature logs, drug arrangement, labeling, signage</li>
+        <li>Processing time: typically 1–3 months. Follow up regularly.</li>
+        <li>Pay the LTO fee (varies by category and drug types carried)</li>
+      </ul>
+      <div class="note red">Do NOT open to the public before your LTO is issued. Operating without an LTO is a criminal violation under RA 9711. Wait for the physical certificate.</div>
+    </div></div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- PHASE 3: FRANCHISE DECISION -->
+  <div class="phase-wrap">
+    <div class="phase-pill" style="background:var(--amber-dim);color:var(--amber);">Phase 3</div>
+    <div class="phase-name">Franchise vs. Independent</div>
+    <div class="phase-hint">Decide before capital planning</div>
+  </div>
+
+  <div class="quest" id="q3a">
+    <div class="quest-head" onclick="toggleQuest('q3a')">
+      <div class="checkbox" id="cb-q3a" onclick="checkQuest(event,'q3a')"></div>
+      <div class="quest-content">
+        <div class="quest-title">Request franchise information packets from TGP and Generika</div>
+        <div class="quest-tags"><span class="tag tag-once">One-time</span></div>
+      </div>
+      <div class="chevron">▼</div>
+    </div>
+    <div class="quest-body"><div class="quest-body-inner">
+      <p>Even if you're leaning independent, franchise packets are a free, detailed compliance roadmap.</p>
+      <ul>
+        <li><strong>TGP (The Generics Pharmacy)</strong> — tgp.com.ph → Franchising → fill inquiry form</li>
+        <li><strong>Generika Drugstore</strong> — generika.com.ph → Franchise → fill inquiry form</li>
+        <li><strong>MedExpress</strong> — also worth checking for comparison</li>
+      </ul>
+      <p style="margin-top:10px;">What to compare in each packet: total investment required, franchise fee, monthly royalty/service fee, territory exclusivity, supplier access, and what they handle for you (permits, layout, training).</p>
+      <div class="note">TGP is generally the lowest-barrier PH pharmacy franchise (~₱300–500k all-in). Generika is more established. Use their checklists as a compliance template even if you go independent.</div>
+    </div></div>
+  </div>
+
+  <div class="quest" id="q3b">
+    <div class="quest-head" onclick="toggleQuest('q3b')">
+      <div class="checkbox" id="cb-q3b" onclick="checkQuest(event,'q3b')"></div>
+      <div class="quest-content">
+        <div class="quest-title">Make your franchise vs. independent decision</div>
+        <div class="quest-tags"><span class="tag tag-once">One-time</span></div>
+      </div>
+      <div class="chevron">▼</div>
+    </div>
+    <div class="quest-body"><div class="quest-body-inner">
+      <p>Key factors to weigh:</p>
+      <ul>
+        <li><strong>Capital:</strong> Franchise requires more upfront (franchise fee + setup standards). Independent is leaner.</li>
+        <li><strong>Brand recognition:</strong> Franchise gives you instant trust. Independent must earn it.</li>
+        <li><strong>Supplier access:</strong> Franchises have pre-negotiated wholesale deals. Independent suppliers require your own relationships.</li>
+        <li><strong>Autonomy:</strong> Independent gives full control over products, pricing, layout. Franchise is constrained by the franchisor.</li>
+        <li><strong>Support:</strong> Franchises guide you through setup, training, and compliance. Independent means figuring it out yourself.</li>
+      </ul>
+      <div class="note amber">There's no universally right answer. First-timers with limited pharmacy business experience often benefit from franchise support during setup. Experienced operators or those with strong supplier networks tend to prefer independent.</div>
+    </div></div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- PHASE 4: CAPITAL -->
+  <div class="phase-wrap">
+    <div class="phase-pill" style="background:var(--red-dim);color:var(--red);">Phase 4</div>
+    <div class="phase-name">Capital Planning</div>
+    <div class="phase-hint">Before signing any lease</div>
+  </div>
+
+  <div class="quest" id="q4a">
+    <div class="quest-head" onclick="toggleQuest('q4a')">
+      <div class="checkbox" id="cb-q4a" onclick="checkQuest(event,'q4a')"></div>
+      <div class="quest-content">
+        <div class="quest-title">Build a full capital estimate spreadsheet</div>
+        <div class="quest-tags"><span class="tag tag-once">One-time</span></div>
+      </div>
+      <div class="chevron">▼</div>
+    </div>
+    <div class="quest-body"><div class="quest-body-inner">
+      <p>Create a spreadsheet with realistic estimates for every cost category:</p>
+      <ul>
+        <li><strong>Renovation / fit-out</strong> — ₱150,000–₱400,000 depending on space condition</li>
+        <li><strong>Initial drug inventory</strong> — ₱300,000–₱700,000 (generics-focused is cheaper to start)</li>
+        <li><strong>Equipment:</strong> shelving, refrigerator (for thermolabile drugs), dispensing counter, POS system, CCTV — ₱80,000–₱180,000</li>
+        <li><strong>Signage and branding</strong> — ₱20,000–₱60,000</li>
+        <li><strong>Permits and LTO fees</strong> — ₱20,000–₱60,000</li>
+        <li><strong>Lease advance + deposit</strong> — typically 2–3 months rent upfront</li>
+        <li><strong>Working capital</strong> — 3 months of: rent + utilities + PIC salary (if applicable) + misc — ₱150,000–₱300,000</li>
+        <li><strong>Franchise fee</strong> — ₱0 (if independent) to ₱200,000+ (if franchise)</li>
+      </ul>
+      <div class="note"><strong>Total rough range: ₱700,000–₱1,700,000</strong> depending on city, space, and setup type. Metro Manila will be at the higher end. Provincial and secondary cities will be lower.</div>
+    </div></div>
+  </div>
+
+  <div class="quest" id="q4b">
+    <div class="quest-head" onclick="toggleQuest('q4b')">
+      <div class="checkbox" id="cb-q4b" onclick="checkQuest(event,'q4b')"></div>
+      <div class="quest-content">
+        <div class="quest-title">Identify and confirm your funding source</div>
+        <div class="quest-tags"><span class="tag tag-once">One-time</span><span class="tag tag-urgent">Don't delay</span></div>
+      </div>
+      <div class="chevron">▼</div>
+    </div>
+    <div class="quest-body"><div class="quest-body-inner">
+      <p>Common funding paths for first-time pharmacy owners in the Philippines:</p>
+      <ul>
+        <li><strong>Personal savings</strong> — cleanest. No repayment pressure during early operations.</li>
+        <li><strong>Family loan or investment</strong> — common and viable. Clarify upfront: loan vs. gift vs. ownership stake. Get it in writing even if informal.</li>
+        <li><strong>Bank loan / SBA loan</strong> — requires collateral, business plan, and credit history. Slower to process but larger amounts possible.</li>
+        <li><strong>Pag-IBIG / SSS loan</strong> — lower amounts, longer processing, but accessible if you're a member.</li>
+        <li><strong>DOST / DTI MSME grants</strong> — check current programs; availability varies by year and region.</li>
+      </ul>
+      <div class="note amber">Whatever the source — have the money confirmed and accessible before signing a lease. Do not sign a lease hoping the loan will come through. The landlord won't wait.</div>
+    </div></div>
+  </div>
+
+  <div class="quest" id="q4c">
+    <div class="quest-head" onclick="toggleQuest('q4c')">
+      <div class="checkbox" id="cb-q4c" onclick="checkQuest(event,'q4c')"></div>
+      <div class="quest-content">
+        <div class="quest-title">Source drug suppliers and get pricing lists</div>
+        <div class="quest-tags"><span class="tag tag-once">One-time</span></div>
+      </div>
+      <div class="chevron">▼</div>
+    </div>
+    <div class="quest-body"><div class="quest-body-inner">
+      <p>Your inventory cost depends heavily on supplier relationships. Start reaching out before you open:</p>
+      <ul>
+        <li><strong>Zuellig Pharma</strong> — largest pharmaceutical distributor in PH. Requires accreditation.</li>
+        <li><strong>Medilink / Cathay Drug</strong> — alternative distributors with different product mixes</li>
+        <li><strong>Direct manufacturer reps</strong> — some brands offer better margins direct vs. through distributors</li>
+        <li>Ask about: minimum order quantities, credit terms (COD vs. 15/30 days), return policies, cold chain for thermolabile drugs</li>
+      </ul>
+      <div class="note">For a generics-focused startup pharmacy, look at PITC Pharma (government distributor of generics) for competitive pricing on essential medicines.</div>
+    </div></div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- PHASE 5: SETUP -->
+  <div class="phase-wrap">
+    <div class="phase-pill" style="background:var(--gray-dim);color:var(--muted);">Phase 5</div>
+    <div class="phase-name">Physical Setup</div>
+    <div class="phase-hint">After lease is signed</div>
+  </div>
+
+  <div class="quest" id="q5a">
+    <div class="quest-head" onclick="toggleQuest('q5a')">
+      <div class="checkbox" id="cb-q5a" onclick="checkQuest(event,'q5a')"></div>
+      <div class="quest-content">
+        <div class="quest-title">Design and build out your pharmacy layout</div>
+        <div class="quest-tags"><span class="tag tag-once">One-time</span></div>
+      </div>
+      <div class="chevron">▼</div>
+    </div>
+    <div class="quest-body"><div class="quest-body-inner">
+      <p>FDA-compliant pharmacy layout must include:</p>
+      <ul>
+        <li><strong>Dispensing area</strong> — clearly marked, with a counter separating staff from customers</li>
+        <li><strong>Drug storage area</strong> — shelving organized by drug category, away from direct sunlight</li>
+        <li><strong>Refrigerator</strong> — for thermolabile drugs (insulin, some vaccines, eye drops). Dedicated pharmaceutical refrigerator required.</li>
+        <li><strong>Consultation area</strong> — even a small designated space satisfies GPP requirements</li>
+        <li><strong>Prescription file / records storage</strong> — for maintaining prescription logs (required by law)</li>
+        <li><strong>Signage</strong> — pharmacy name, PIC name with PRC license number, operating hours</li>
+      </ul>
+      <div class="note blue">Get a simple floor plan drawn (even hand-sketched) before fit-out. You'll need to submit it to the FDA with your LTO application.</div>
+    </div></div>
+  </div>
+
+  <div class="quest" id="q5b">
+    <div class="quest-head" onclick="toggleQuest('q5b')">
+      <div class="checkbox" id="cb-q5b" onclick="checkQuest(event,'q5b')"></div>
+      <div class="quest-content">
+        <div class="quest-title">Stock your initial inventory</div>
+        <div class="quest-tags"><span class="tag tag-once">One-time</span></div>
+      </div>
+      <div class="chevron">▼</div>
+    </div>
+    <div class="quest-body"><div class="quest-body-inner">
+      <p>For a first pharmacy, start lean and focused rather than trying to carry everything:</p>
+      <ul>
+        <li>Essential generic medicines (paracetamol, amoxicillin, mefenamic acid, metformin, amlodipine, etc.)</li>
+        <li>OTC bestsellers: vitamins, antacids, antihistamines, topical antiseptics</li>
+        <li>High-turnover maintenance meds for your area's prevalent conditions</li>
+        <li>Basic medical supplies: syringes, alcohol, cotton, bandages</li>
+        <li>Do NOT over-invest in slow-moving SKUs at launch — let demand tell you what to stock</li>
+      </ul>
+      <div class="note amber">The Generics Act (RA 6675) requires pharmacies to carry generic equivalents of branded drugs. Compliance is mandatory and inspected.</div>
+    </div></div>
+  </div>
+
+  <div class="quest" id="q5c">
+    <div class="quest-head" onclick="toggleQuest('q5c')">
+      <div class="checkbox" id="cb-q5c" onclick="checkQuest(event,'q5c')"></div>
+      <div class="quest-content">
+        <div class="quest-title">Set up your POS, records system, and temperature logs</div>
+        <div class="quest-tags"><span class="tag tag-once">One-time</span></div>
+      </div>
+      <div class="chevron">▼</div>
+    </div>
+    <div class="quest-body"><div class="quest-body-inner">
+      <ul>
+        <li><strong>POS system</strong> — even a simple one (PharmaPOS, or a tablet-based solution). Tracks sales, inventory, and issues BIR-compliant receipts.</li>
+        <li><strong>Prescription logbook</strong> — required by law. Log all dispensed prescription drugs with: date, patient name, prescriber, drug, quantity.</li>
+        <li><strong>Temperature monitoring log</strong> — daily min/max temperature record for your storage area and refrigerator. FDA inspectors check this.</li>
+        <li><strong>Drug expiry tracking</strong> — system or manual log for first-expiry-first-out (FEFO) inventory management</li>
+      </ul>
+      <div class="note">Regulated drugs (e.g., controlled substances, antibiotics) have stricter record-keeping rules under PDEA and DOH. Review RA 9165 requirements if you plan to carry these.</div>
+    </div></div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- RECURRING -->
+  <div class="phase-wrap">
+    <div class="phase-pill" style="background:var(--gray-dim);color:var(--muted);">Ongoing</div>
+    <div class="phase-name">Weekly Check-ins</div>
+    <div class="phase-hint">Every 7 days</div>
+  </div>
+
+  <div class="quest" id="qw1">
+    <div class="quest-head" onclick="toggleQuest('qw1')">
+      <div class="checkbox" id="cb-qw1" onclick="checkQuest(event,'qw1')"></div>
+      <div class="quest-content">
+        <div class="quest-title">Review your location tracker and update statuses</div>
+        <div class="quest-tags"><span class="tag tag-weekly">Weekly</span></div>
+      </div>
+      <div class="chevron">▼</div>
+    </div>
+    <div class="quest-body"><div class="quest-body-inner">
+      <p>Go through every space you've logged and ask:</p>
+      <ul>
+        <li>Have any "Spotted" been upgraded to "Inquired" yet? If not — why not?</li>
+        <li>Any previously available spaces now taken? Remove or flag them.</li>
+        <li>Do you have at least 3 shortlisted candidates? If not — scout more this week.</li>
+        <li>Which space is currently looking most promising, and what's blocking you from moving forward on it?</li>
+      </ul>
+    </div></div>
+  </div>
+
+  <div class="quest" id="qw2">
+    <div class="quest-head" onclick="toggleQuest('qw2')">
+      <div class="checkbox" id="cb-qw2" onclick="checkQuest(event,'qw2')"></div>
+      <div class="quest-content">
+        <div class="quest-title">Check for new FDA or LGU regulatory updates</div>
+        <div class="quest-tags"><span class="tag tag-weekly">Weekly</span></div>
+      </div>
+      <div class="chevron">▼</div>
+    </div>
+    <div class="quest-body"><div class="quest-body-inner">
+      <p>Takes 5 minutes. Requirements change without much notice:</p>
+      <ul>
+        <li>Check <strong>fda.gov.ph</strong> for new circulars or advisories under drugstores / pharmaceutical establishments</li>
+        <li>Check your city / municipal hall announcements for business permit updates</li>
+        <li>Join Facebook groups: <strong>"Pharmacy Owners Philippines"</strong> or <strong>"RPh Philippines"</strong> — practitioners often post real-world regulatory updates faster than official channels</li>
+      </ul>
+    </div></div>
+  </div>
+
+  <div class="quest" id="qw3">
+    <div class="quest-head" onclick="toggleQuest('qw3')">
+      <div class="checkbox" id="cb-qw3" onclick="checkQuest(event,'qw3')"></div>
+      <div class="quest-content">
+        <div class="quest-title">Follow up on any pending permit applications</div>
+        <div class="quest-tags"><span class="tag tag-weekly">Weekly</span></div>
+      </div>
+      <div class="chevron">▼</div>
+    </div>
+    <div class="quest-body"><div class="quest-body-inner">
+      <p>Government processing moves slowly unless you follow up. Every week:</p>
+      <ul>
+        <li>Call or visit any agency with a pending application — FDA, LGU, BIR, DTI</li>
+        <li>Ask for a specific timeline or next step, not just "it's being processed"</li>
+        <li>Log the date, who you spoke to, and what they said — paper trails matter if something gets lost</li>
+        <li>If an agency asks for an additional document, provide it within 24–48 hours to avoid queue delays</li>
+      </ul>
+      <div class="note amber">The FDA LTO is the slowest step. Applicants who follow up weekly get processed faster than those who wait passively.</div>
+    </div></div>
+  </div>
+
+</div><!-- /body -->
+
+<div class="footer">
+  <div class="footer-text">
+    <strong>PH Pharmacy Setup Guide</strong><br>
+    All data stays on this device only.
+  </div>
+</div>
+
+<script>
+  const DONE_KEY  = 'pharma_gen_done_v2';
+  const OPEN_KEY  = 'pharma_gen_open_v2';
+  const RPH_KEY   = 'pharma_gen_rph_v2';
+
+  const DAILY_IDS    = ['q1a','q1b','q1c','qw1','qw2','qw3'];
+  const URGENT_IDS   = ['q1a','q2f','q4b'];
+  const PRIORITY_IDS = [...new Set([...DAILY_IDS, ...URGENT_IDS])];
+  const NON_RPH_IDS  = ['q0a','q0b'];
+
+  let done   = JSON.parse(localStorage.getItem(DONE_KEY) || '[]');
+  let open   = JSON.parse(localStorage.getItem(OPEN_KEY) || '[]');
+  let isRph  = localStorage.getItem(RPH_KEY) === 'true';
+
+  function save() {
+    localStorage.setItem(DONE_KEY, JSON.stringify(done));
+    localStorage.setItem(OPEN_KEY, JSON.stringify(open));
+    localStorage.setItem(RPH_KEY, isRph);
+  }
+
+  function updateProgress() {
+    const activeIds = PRIORITY_IDS.filter(id => isRph ? !NON_RPH_IDS.includes(id) : true);
+    const total = activeIds.length;
+    const count = activeIds.filter(id => done.includes(id)).length;
+    const pct = total ? Math.round((count / total) * 100) : 0;
+    document.getElementById('prog').style.width = pct + '%';
+    document.getElementById('prog-label').textContent = count + ' / ' + total + ' priority tasks';
+  }
+
+  function render() {
+    const phase0 = document.getElementById('phase0-wrap');
+    if (phase0) phase0.style.display = isRph ? 'none' : 'block';
+
+    const btn = document.getElementById('rph-toggle');
+    if (btn) btn.classList.toggle('on', isRph);
+
+    document.querySelectorAll('.quest[id]').forEach(card => {
+      const id = card.id;
+      const cb = document.getElementById('cb-' + id);
+      card.classList.toggle('done', done.includes(id));
+      card.classList.toggle('open', open.includes(id));
+      if (cb) cb.classList.toggle('checked', done.includes(id));
+    });
+    updateProgress();
+  }
+
+  function toggleRph() {
+    isRph = !isRph;
+    save();
+    render();
+  }
+
+  function checkQuest(e, id) {
+    e.stopPropagation();
+    done = done.includes(id) ? done.filter(x => x !== id) : [...done, id];
+    if (done.includes(id)) {
+      const cb = document.getElementById('cb-' + id);
+      if (cb) { cb.classList.add('pop'); setTimeout(() => cb.classList.remove('pop'), 300); }
+    }
+    save();
+    render();
+  }
+
+  function toggleQuest(id) {
+    open = open.includes(id) ? open.filter(x => x !== id) : [...open, id];
+    save();
+    render();
+  }
+
+  function resetDay() {
+    if (!confirm('Reset daily task progress?')) return;
+    done = done.filter(id => !DAILY_IDS.includes(id));
+    save();
+    render();
+  }
+
+  function resetAll() {
+    if (!confirm('Reset ALL progress? This cannot be undone.')) return;
+    done = []; open = [];
+    save();
+    render();
+  }
+
+  render();
+</script>
+</body>
+</html>
