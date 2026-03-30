@@ -1,38 +1,69 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="light">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-<meta name="theme-color" content="#0a0a0f">
 <title>PH Pharmacy Setup Guide</title>
 <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,400&display=swap" rel="stylesheet">
 <style>
+  /* ── LIGHT THEME (default) ── */
   :root {
-    --bg: #0a0a0f;
-    --bg2: #111118;
-    --bg3: #18181f;
-    --bg4: #1f1f28;
-    --border: rgba(255,255,255,0.07);
-    --border2: rgba(255,255,255,0.13);
-    --text: #f0f0f5;
-    --muted: #7a7a8a;
-    --muted2: #55555f;
-    --accent: #4ade80;
+    --bg:         #f5f5f0;
+    --bg2:        #ffffff;
+    --bg3:        #eeede8;
+    --bg4:        #e4e3dd;
+    --border:     rgba(0,0,0,0.18);
+    --border2:    rgba(0,0,0,0.28);
+    --text:       #18181a;
+    --muted:      #5a5a66;
+    --muted2:     #9090a0;
+    --accent:     #16a34a;
+    --accent-dim: rgba(22,163,74,0.10);
+    --accent-glow:rgba(22,163,74,0.18);
+    --blue:       #2563eb;
+    --blue-dim:   rgba(37,99,235,0.09);
+    --amber:      #d97706;
+    --amber-dim:  rgba(217,119,6,0.10);
+    --red:        #dc2626;
+    --red-dim:    rgba(220,38,38,0.09);
+    --purple:     #7c3aed;
+    --purple-dim: rgba(124,58,237,0.10);
+    --gray-dim:   rgba(0,0,0,0.05);
+    --header-bg:  rgba(245,245,240,0.92);
+    --footer-bg:  rgba(245,245,240,0.96);
+    --shadow:     0 1px 3px rgba(0,0,0,0.07);
+    --radius:     13px;
+    --radius-sm:  7px;
+  }
+
+  /* ── DARK THEME ── */
+  [data-theme="dark"] {
+    --bg:         #0a0a0f;
+    --bg2:        #111118;
+    --bg3:        #18181f;
+    --bg4:        #1f1f28;
+    --border:     rgba(255,255,255,0.07);
+    --border2:    rgba(255,255,255,0.13);
+    --text:       #f0f0f5;
+    --muted:      #7a7a8a;
+    --muted2:     #55555f;
+    --accent:     #4ade80;
     --accent-dim: rgba(74,222,128,0.12);
-    --accent-glow: rgba(74,222,128,0.2);
-    --blue: #60a5fa;
-    --blue-dim: rgba(96,165,250,0.12);
-    --amber: #fbbf24;
-    --amber-dim: rgba(251,191,36,0.12);
-    --red: #f87171;
-    --red-dim: rgba(248,113,113,0.12);
-    --purple: #a78bfa;
+    --accent-glow:rgba(74,222,128,0.20);
+    --blue:       #60a5fa;
+    --blue-dim:   rgba(96,165,250,0.12);
+    --amber:      #fbbf24;
+    --amber-dim:  rgba(251,191,36,0.12);
+    --red:        #f87171;
+    --red-dim:    rgba(248,113,113,0.12);
+    --purple:     #a78bfa;
     --purple-dim: rgba(167,139,250,0.12);
-    --gray-dim: rgba(255,255,255,0.05);
-    --radius: 14px;
-    --radius-sm: 8px;
+    --gray-dim:   rgba(255,255,255,0.05);
+    --header-bg:  rgba(10,10,15,0.92);
+    --footer-bg:  rgba(10,10,15,0.96);
+    --shadow:     0 1px 4px rgba(0,0,0,0.35);
   }
 
   * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
@@ -43,54 +74,105 @@
     font-family: 'DM Sans', sans-serif;
     min-height: 100dvh;
     overscroll-behavior: none;
+    transition: background 0.25s, color 0.25s;
   }
 
-  /* HEADER */
+  /* ── HEADER (slimmer) ── */
   .header {
     position: sticky;
     top: 0;
     z-index: 100;
-    background: rgba(10,10,15,0.9);
+    background: var(--header-bg);
     backdrop-filter: blur(20px);
     -webkit-backdrop-filter: blur(20px);
     border-bottom: 1px solid var(--border);
-    padding: 14px 18px 12px;
+    padding: 9px 14px 9px;
   }
-  .header-top {
+
+  /* Row 1: title + controls */
+  .header-row1 {
     display: flex;
-    align-items: flex-start;
-    justify-content: space-between;
-    margin-bottom: 10px;
-    gap: 10px;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 7px;
   }
+  .header-title-block { flex: 1; min-width: 0; }
   .header-title {
     font-family: 'Syne', sans-serif;
-    font-size: 18px;
-    font-weight: 800;
+    font-size: 15px;
+    font-weight: 600;
     letter-spacing: -0.3px;
     color: var(--text);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
     line-height: 1.2;
   }
   .header-sub {
-    font-size: 11px;
+    font-size: 10px;
+    color: var(--muted2);
+    margin-top: 1px;
+  }
+  .header-controls {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    flex-shrink: 0;
+  }
+
+  /* Theme toggle button */
+  .theme-btn {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    border: 1px solid var(--border2);
+    background: var(--bg3);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+    transition: all 0.15s;
+    flex-shrink: 0;
+    line-height: 1;
+  }
+  .theme-btn:active { opacity: 0.6; transform: scale(0.9); }
+
+  .btn-sm {
+    background: var(--bg3);
+    border: 1px solid var(--border2);
     color: var(--muted);
-    margin-top: 3px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 10px;
+    padding: 4px 9px;
+    border-radius: 20px;
+    cursor: pointer;
+    white-space: nowrap;
+    transition: all 0.15s;
+  }
+  .btn-sm:active { opacity: 0.6; transform: scale(0.96); }
+
+  /* Row 2: RPh toggle + progress inline */
+  .header-row2 {
+    display: flex;
+    align-items: center;
+    gap: 8px;
   }
   .rph-toggle-row {
     display: flex;
     align-items: center;
-    justify-content: space-between;
-    margin-bottom: 10px;
-    padding: 8px 10px;
+    gap: 6px;
+    padding: 4px 8px;
     background: var(--bg3);
-    border-radius: var(--radius-sm);
+    border-radius: 20px;
     border: 1px solid var(--border);
+    flex-shrink: 0;
   }
-  .rph-label { font-size: 12px; color: var(--muted); }
+  .rph-label { font-size: 11px; color: var(--muted); white-space: nowrap; }
   .toggle-btn {
-    width: 40px;
-    height: 22px;
-    border-radius: 11px;
+    width: 34px;
+    height: 19px;
+    border-radius: 10px;
     background: var(--bg4);
     border: 1px solid var(--border2);
     cursor: pointer;
@@ -103,101 +185,86 @@
     position: absolute;
     top: 2px;
     left: 2px;
-    width: 16px;
-    height: 16px;
+    width: 13px;
+    height: 13px;
     border-radius: 50%;
     background: var(--muted2);
     transition: transform 0.2s, background 0.2s;
   }
-  .toggle-btn.on .toggle-knob { transform: translateX(18px); background: #0a0a0f; }
-  .header-actions {
-    display: flex;
-    gap: 6px;
-    flex-shrink: 0;
-  }
-  .btn-sm {
-    background: var(--bg3);
-    border: 1px solid var(--border2);
-    color: var(--muted);
-    font-family: 'DM Sans', sans-serif;
-    font-size: 11px;
-    padding: 5px 10px;
-    border-radius: 20px;
-    cursor: pointer;
-    white-space: nowrap;
-    transition: all 0.15s;
-  }
-  .btn-sm:active { opacity: 0.6; transform: scale(0.96); }
+  .toggle-btn.on .toggle-knob { transform: translateX(15px); background: var(--bg); }
 
-  /* PROGRESS */
-  .progress-wrap { display: flex; align-items: center; gap: 10px; }
+  /* Progress inline */
+  .progress-wrap { flex: 1; display: flex; align-items: center; gap: 7px; min-width: 0; }
   .progress-track {
     flex: 1;
-    height: 4px;
+    height: 10px;
     background: var(--bg4);
-    border-radius: 4px;
+    border-radius: 10px;
     overflow: hidden;
+    min-width: 40px;
   }
   .progress-fill {
     height: 100%;
     background: var(--accent);
     border-radius: 4px;
     transition: width 0.4s cubic-bezier(0.34,1.56,0.64,1);
-    box-shadow: 0 0 8px var(--accent-glow);
+    box-shadow: 0 0 6px var(--accent-glow);
   }
   .progress-label {
-    font-size: 12px;
+    font-size: 11px;
     color: var(--muted);
     white-space: nowrap;
     font-variant-numeric: tabular-nums;
+    flex-shrink: 0;
   }
 
-  /* BODY */
-  .body { padding: 0 14px 100px; }
+  /* ── BODY ── */
+  .body { padding: 0 12px 100px; }
 
   /* PHASE HEADER */
   .phase-wrap {
-    padding: 22px 4px 8px;
+    padding: 20px 4px 7px;
     display: flex;
     align-items: center;
-    gap: 8px;
+    gap: 7px;
     flex-wrap: wrap;
   }
   .phase-pill {
     font-family: 'Syne', sans-serif;
-    font-size: 10px;
+    font-size: 9px;
     font-weight: 700;
     letter-spacing: 0.08em;
     text-transform: uppercase;
-    padding: 4px 10px;
+    padding: 3px 8px;
     border-radius: 20px;
     flex-shrink: 0;
   }
   .phase-name {
     font-family: 'Syne', sans-serif;
-    font-size: 15px;
+    font-size: 14px;
     font-weight: 700;
     color: var(--text);
     flex: 1;
   }
-  .phase-hint { font-size: 11px; color: var(--muted2); }
+  .phase-hint { font-size: 10px; color: var(--muted2); }
 
   /* QUEST CARD */
   .quest {
     background: var(--bg2);
     border: 1px solid var(--border);
     border-radius: var(--radius);
-    margin-bottom: 8px;
+    margin-bottom: 7px;
     overflow: hidden;
     transition: border-color 0.2s, opacity 0.2s;
+    box-shadow: var(--shadow);
   }
   .quest.done { opacity: 0.45; }
   .quest.done .quest-title { text-decoration: line-through; color: var(--muted); }
   .quest-head {
     display: flex;
     align-items: flex-start;
-    gap: 12px;
-    padding: 13px 13px 11px;
+    gap: 11px;
+    padding: 11px 12px 10px;
     cursor: pointer;
     user-select: none;
     -webkit-user-select: none;
@@ -205,8 +272,8 @@
   .quest-head:active { background: var(--bg3); }
 
   .checkbox {
-    width: 22px;
-    height: 22px;
+    width: 20px;
+    height: 20px;
     border-radius: 50%;
     border: 1.5px solid var(--border2);
     flex-shrink: 0;
@@ -220,14 +287,14 @@
   .checkbox.checked {
     background: var(--accent);
     border-color: var(--accent);
-    box-shadow: 0 0 10px var(--accent-glow);
+    box-shadow: 0 0 8px var(--accent-glow);
   }
   .checkbox.checked::after {
     content: '';
     display: block;
-    width: 6px;
-    height: 10px;
-    border: 2px solid #0a0a0f;
+    width: 5px;
+    height: 9px;
+    border: 2px solid var(--bg);
     border-top: none;
     border-left: none;
     transform: rotate(45deg) translateY(-1px);
@@ -235,31 +302,31 @@
 
   .quest-content { flex: 1; min-width: 0; }
   .quest-title {
-    font-size: 14px;
+    font-size: 13.5px;
     font-weight: 500;
     color: var(--text);
     line-height: 1.4;
     transition: color 0.2s;
   }
-  .quest-tags { display: flex; flex-wrap: wrap; gap: 5px; margin-top: 6px; }
+  .quest-tags { display: flex; flex-wrap: wrap; gap: 4px; margin-top: 5px; }
   .tag {
     font-size: 10px;
     font-weight: 500;
-    padding: 2px 8px;
+    padding: 2px 7px;
     border-radius: 20px;
     letter-spacing: 0.02em;
   }
-  .tag-daily   { background: rgba(74,222,128,0.13); color: #4ade80; }
+  .tag-daily   { background: var(--accent-dim); color: var(--accent); }
   .tag-once    { background: var(--blue-dim); color: var(--blue); }
   .tag-weekly  { background: var(--amber-dim); color: var(--amber); }
   .tag-urgent  { background: var(--red-dim); color: var(--red); }
   .tag-rph     { background: var(--purple-dim); color: var(--purple); }
 
   .chevron {
-    font-size: 10px;
+    font-size: 9px;
     color: var(--muted2);
     flex-shrink: 0;
-    margin-top: 4px;
+    margin-top: 5px;
     transition: transform 0.22s;
   }
   .quest.open .chevron { transform: rotate(180deg); }
@@ -271,7 +338,7 @@
   }
   .quest.open .quest-body { max-height: 700px; }
   .quest-body-inner {
-    padding: 0 13px 13px 47px;
+    padding: 0 12px 12px 43px;
     border-top: 1px solid var(--border);
   }
   .quest-body-inner p {
@@ -290,7 +357,7 @@
   .quest-body-inner p strong { color: var(--text); font-weight: 500; }
   .note {
     margin-top: 10px;
-    padding: 9px 12px;
+    padding: 8px 11px;
     background: var(--bg4);
     border-radius: var(--radius-sm);
     border-left: 2px solid var(--accent);
@@ -311,16 +378,16 @@
     bottom: 0;
     left: 0;
     right: 0;
-    background: rgba(10,10,15,0.95);
+    background: var(--footer-bg);
     backdrop-filter: blur(16px);
     border-top: 1px solid var(--border);
-    padding: 12px 18px 20px;
+    padding: 10px 16px 18px;
     display: flex;
     align-items: center;
     justify-content: space-between;
     gap: 10px;
   }
-  .footer-text { font-size: 11px; color: var(--muted2); line-height: 1.4; }
+  .footer-text { font-size: 10px; color: var(--muted2); line-height: 1.4; }
   .footer-text strong { color: var(--muted); font-weight: 500; }
 
   /* POP ANIM */
@@ -336,25 +403,30 @@
 <body>
 
 <div class="header">
-  <div class="header-top">
-    <div>
+  <!-- Row 1: Title + controls -->
+  <div class="header-row1">
+    <div class="header-title-block">
       <div class="header-title">PH Pharmacy Setup Guide</div>
       <div class="header-sub">Philippines · Step-by-step quest board</div>
     </div>
-    <div class="header-actions">
+    <div class="header-controls">
+      <button class="theme-btn" id="theme-btn" onclick="toggleTheme()" title="Toggle theme">☀️</button>
       <button class="btn-sm" onclick="resetDay()">Reset daily</button>
       <button class="btn-sm" onclick="resetAll()">Reset all</button>
     </div>
   </div>
-  <div class="rph-toggle-row">
-    <span class="rph-label">I am a licensed RPh (pharmacist)</span>
-    <button class="toggle-btn" id="rph-toggle" onclick="toggleRph()">
-      <span class="toggle-knob"></span>
-    </button>
-  </div>
-  <div class="progress-wrap">
-    <div class="progress-track"><div class="progress-fill" id="prog"></div></div>
-    <div class="progress-label" id="prog-label">0 / 0</div>
+  <!-- Row 2: RPh toggle + progress -->
+  <div class="header-row2">
+    <div class="rph-toggle-row">
+      <span class="rph-label">I'm a licensed RPh</span>
+      <button class="toggle-btn" id="rph-toggle" onclick="toggleRph()">
+        <span class="toggle-knob"></span>
+      </button>
+    </div>
+    <div class="progress-wrap">
+      <div class="progress-track"><div class="progress-fill" id="prog"></div></div>
+      <div class="progress-label" id="prog-label">0 / 0</div>
+    </div>
   </div>
 </div>
 
@@ -456,7 +528,7 @@
         <li>Minimum 20 sqm — smaller spaces will fail FDA floor area requirements</li>
         <li>Screenshot or save promising listings immediately — they disappear fast</li>
         <li>Message 1–2 landlords even if you're not ready — ask for floor plan and monthly rate</li>
-        <li>Also check your city's local Facebook Buy & Sell groups</li>
+        <li>Also check your city's local Facebook Buy &amp; Sell groups</li>
       </ul>
     </div></div>
   </div>
@@ -531,7 +603,7 @@
 
   <!-- PHASE 2: REGULATORY -->
   <div class="phase-wrap">
-    <div class="phase-pill" style="background:rgba(74,222,128,0.13);color:#4ade80;">Phase 2</div>
+    <div class="phase-pill" style="background:var(--accent-dim);color:var(--accent);">Phase 2</div>
     <div class="phase-name">Regulatory Requirements</div>
     <div class="phase-hint">Run parallel to Phase 1</div>
   </div>
@@ -953,20 +1025,24 @@
   const DONE_KEY  = 'pharma_gen_done_v2';
   const OPEN_KEY  = 'pharma_gen_open_v2';
   const RPH_KEY   = 'pharma_gen_rph_v2';
+  const THEME_KEY = 'pharma_gen_theme_v1';
 
   const DAILY_IDS    = ['q1a','q1b','q1c','qw1','qw2','qw3'];
   const URGENT_IDS   = ['q1a','q2f','q4b'];
   const PRIORITY_IDS = [...new Set([...DAILY_IDS, ...URGENT_IDS])];
   const NON_RPH_IDS  = ['q0a','q0b'];
 
-  let done   = JSON.parse(localStorage.getItem(DONE_KEY) || '[]');
-  let open   = JSON.parse(localStorage.getItem(OPEN_KEY) || '[]');
-  let isRph  = localStorage.getItem(RPH_KEY) === 'true';
+  let done  = JSON.parse(localStorage.getItem(DONE_KEY) || '[]');
+  let open  = JSON.parse(localStorage.getItem(OPEN_KEY) || '[]');
+  let isRph = localStorage.getItem(RPH_KEY) === 'true';
+  // Default to light mode
+  let isDark = localStorage.getItem(THEME_KEY) === 'dark';
 
   function save() {
     localStorage.setItem(DONE_KEY, JSON.stringify(done));
     localStorage.setItem(OPEN_KEY, JSON.stringify(open));
     localStorage.setItem(RPH_KEY, isRph);
+    localStorage.setItem(THEME_KEY, isDark ? 'dark' : 'light');
   }
 
   function updateProgress() {
@@ -975,7 +1051,18 @@
     const count = activeIds.filter(id => done.includes(id)).length;
     const pct = total ? Math.round((count / total) * 100) : 0;
     document.getElementById('prog').style.width = pct + '%';
-    document.getElementById('prog-label').textContent = count + ' / ' + total + ' priority tasks';
+    document.getElementById('prog-label').textContent = count + ' / ' + total;
+  }
+
+  function applyTheme() {
+    document.documentElement.setAttribute('data-theme', isDark ? 'dark' : 'light');
+    document.getElementById('theme-btn').textContent = isDark ? '🌙' : '☀️';
+  }
+
+  function toggleTheme() {
+    isDark = !isDark;
+    save();
+    applyTheme();
   }
 
   function render() {
@@ -1032,6 +1119,8 @@
     render();
   }
 
+  // Init
+  applyTheme();
   render();
 </script>
 </body>
