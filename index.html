@@ -2,447 +2,362 @@
 <html lang="en" data-theme="light">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <title>PH Pharmacy Setup Guide</title>
-<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,400&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400..600;1,6..72,400&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
-  /* ── LIGHT THEME (default) ── */
-  :root {
-    --bg:         #f5f5f0;
-    --bg2:        #ffffff;
-    --bg3:        #eeede8;
-    --bg4:        #e4e3dd;
-    --border:     rgba(0,0,0,0.18);
-    --border2:    rgba(0,0,0,0.28);
-    --text:       #18181a;
-    --muted:      #5a5a66;
-    --muted2:     #9090a0;
-    --accent:     #16a34a;
-    --accent-dim: rgba(22,163,74,0.10);
-    --accent-glow:rgba(22,163,74,0.18);
-    --blue:       #2563eb;
-    --blue-dim:   rgba(37,99,235,0.09);
-    --amber:      #d97706;
-    --amber-dim:  rgba(217,119,6,0.10);
-    --red:        #dc2626;
-    --red-dim:    rgba(220,38,38,0.09);
-    --purple:     #7c3aed;
-    --purple-dim: rgba(124,58,237,0.10);
-    --gray-dim:   rgba(0,0,0,0.05);
-    --header-bg:  rgba(245,245,240,0.92);
-    --footer-bg:  rgba(245,245,240,0.96);
-    --shadow:     0 1px 3px rgba(0,0,0,0.07);
-    --radius:     13px;
-    --radius-sm:  7px;
+  /* ══════════════════════════════════════════════════════════════
+     PH Pharmacy Setup Guide - editorial dossier
+     tokens → topbar → shell/rail → phases → entries
+     ══════════════════════════════════════════════════════════════ */
+  :root{
+    --paper:#f6f4ef; --paper-2:#fffefb; --paper-3:#ebe8e0;
+    --ink:#16171a; --ink-2:#41444a; --mut:#6d6c68; --mut-2:#9b9a92;
+    --rule:rgba(22,23,26,.14); --rule-2:rgba(22,23,26,.30);
+    --accent:#14653e; --accent-bg:rgba(20,101,62,.08);
+    --blue:#1d4e8c;   --blue-bg:rgba(29,78,140,.08);
+    --amber:#8a5a12;  --amber-bg:rgba(138,90,18,.10);
+    --red:#9d2a22;    --red-bg:rgba(157,42,34,.08);
+    --purple:#5a3a8c; --purple-bg:rgba(90,58,140,.08);
+    --gray-bg:rgba(22,23,26,.05);
+    --on-accent:#fffefb;
+    --topbar-bg:rgba(246,244,239,.85);
+    --shadow:0 1px 2px rgba(20,20,25,.04);
+    --radius:3px;
+    --serif:'Newsreader',Georgia,'Times New Roman',serif;
+    --sans:'DM Sans',system-ui,-apple-system,sans-serif;
+  }
+  [data-theme="dark"]{
+    --paper:#0e0f11; --paper-2:#15171a; --paper-3:#1e2126;
+    --ink:#f0efeb; --ink-2:#c3c5c9; --mut:#8b8d91; --mut-2:#61646a;
+    --rule:rgba(255,255,255,.09); --rule-2:rgba(255,255,255,.24);
+    --accent:#63c491; --accent-bg:rgba(99,196,145,.11);
+    --blue:#84aee6;   --blue-bg:rgba(132,174,230,.11);
+    --amber:#dcaa5a;  --amber-bg:rgba(220,170,90,.11);
+    --red:#e58a80;    --red-bg:rgba(229,138,128,.11);
+    --purple:#a992e0; --purple-bg:rgba(169,146,224,.11);
+    --gray-bg:rgba(255,255,255,.05);
+    --on-accent:#0e0f11;
+    --topbar-bg:rgba(14,15,17,.85);
+    --shadow:0 1px 2px rgba(0,0,0,.3);
   }
 
-  /* ── DARK THEME ── */
-  [data-theme="dark"] {
-    --bg:         #0a0a0f;
-    --bg2:        #111118;
-    --bg3:        #18181f;
-    --bg4:        #1f1f28;
-    --border:     rgba(255,255,255,0.07);
-    --border2:    rgba(255,255,255,0.13);
-    --text:       #f0f0f5;
-    --muted:      #7a7a8a;
-    --muted2:     #55555f;
-    --accent:     #4ade80;
-    --accent-dim: rgba(74,222,128,0.12);
-    --accent-glow:rgba(74,222,128,0.20);
-    --blue:       #60a5fa;
-    --blue-dim:   rgba(96,165,250,0.12);
-    --amber:      #fbbf24;
-    --amber-dim:  rgba(251,191,36,0.12);
-    --red:        #f87171;
-    --red-dim:    rgba(248,113,113,0.12);
-    --purple:     #a78bfa;
-    --purple-dim: rgba(167,139,250,0.12);
-    --gray-dim:   rgba(255,255,255,0.05);
-    --header-bg:  rgba(10,10,15,0.92);
-    --footer-bg:  rgba(10,10,15,0.96);
-    --shadow:     0 1px 4px rgba(0,0,0,0.35);
+  *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+  html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+  @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}
+    *{transition-duration:.01ms!important;animation-duration:.01ms!important}}
+  body{
+    background-color:var(--paper);color:var(--ink);
+    font-family:var(--sans);font-size:15px;line-height:1.6;
+    -webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility;
+    transition:background-color .25s,color .25s;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23n)' opacity='.2'/%3E%3C/svg%3E");
   }
+  a{color:inherit}
+  .is-hidden{display:none!important}
 
-  * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
+  /* ── TOPBAR ─────────────────────────────────────────────── */
+  .topbar{position:sticky;top:0;z-index:60;background:var(--topbar-bg);
+    backdrop-filter:blur(16px) saturate(150%);-webkit-backdrop-filter:blur(16px) saturate(150%);
+    border-bottom:1px solid var(--rule)}
+  .topbar .row{max-width:1260px;margin:0 auto;padding:11px 32px;display:flex;align-items:center;gap:13px}
+  .monogram{width:33px;height:33px;flex:0 0 auto;border:1px solid var(--rule-2);border-radius:2px;
+    background:var(--paper-2);display:grid;place-items:center;
+    font-family:var(--serif);font-size:14px;font-weight:600;letter-spacing:-.01em}
+  .brand{flex:1;min-width:0}
+  .brand-title{font-family:var(--serif);font-size:16.5px;font-weight:500;letter-spacing:-.012em;
+    line-height:1.2;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .brand-sub{font-size:9.5px;text-transform:uppercase;letter-spacing:.15em;color:var(--mut-2);margin-top:2px;
+    white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .theme-btn{width:32px;height:32px;flex:0 0 auto;display:grid;place-items:center;cursor:pointer;
+    border:1px solid var(--rule-2);border-radius:2px;background:transparent;color:var(--ink);
+    font-size:13px;line-height:1;transition:background .16s,border-color .16s}
+  .theme-btn:hover{background:var(--paper-3);border-color:var(--mut-2)}
 
-  html, body {
-    background: var(--bg);
-    color: var(--text);
-    font-family: 'DM Sans', sans-serif;
-    min-height: 100dvh;
-    overscroll-behavior: none;
-    transition: background 0.25s, color 0.25s;
-  }
+  /* ── SHELL ──────────────────────────────────────────────── */
+  .shell{max-width:1260px;margin:0 auto;padding:0 32px;
+    display:grid;grid-template-columns:236px minmax(0,1fr);gap:58px;align-items:start}
 
-  /* ── HEADER (slimmer) ── */
-  .header {
-    position: sticky;
-    top: 0;
-    z-index: 100;
-    background: var(--header-bg);
-    backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px);
-    border-bottom: 1px solid var(--border);
-    padding: 9px 14px 9px;
-  }
+  /* ── RAIL (sidebar) ─────────────────────────────────────── */
+  .rail{position:sticky;top:68px;padding-bottom:60px;font-size:12.5px}
+  .rail-block{padding:15px 0;border-top:1px solid var(--rule)}
+  .rail-block:first-child{border-top:0;padding-top:30px}
+  .rail-label{font-size:9.5px;font-weight:500;text-transform:uppercase;letter-spacing:.16em;
+    color:var(--mut-2);margin-bottom:11px}
+  .prog-row{display:flex;align-items:center;gap:13px}
+  .pct{font-family:var(--serif);font-size:37px;font-weight:500;line-height:1;letter-spacing:-.03em;
+    font-variant-numeric:tabular-nums;flex:0 0 auto}
+  .prog-meta{flex:1;min-width:0}
+  .progress-track{height:3px;background:var(--paper-3);border:1px solid var(--rule);overflow:hidden}
+  .progress-fill{height:100%;width:0;background:var(--accent);transition:width .45s cubic-bezier(.22,1,.36,1)}
+  .progress-label{font-size:11px;color:var(--mut);margin-top:6px;font-variant-numeric:tabular-nums}
 
-  /* Row 1: title + controls */
-  .header-row1 {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    margin-bottom: 7px;
-  }
-  .header-title-block { flex: 1; min-width: 0; }
-  .header-title {
-    font-family: 'Syne', sans-serif;
-    font-size: 15px;
-    font-weight: 600;
-    letter-spacing: -0.3px;
-    color: var(--text);
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    line-height: 1.2;
-  }
-  .header-sub {
-    font-size: 10px;
-    color: var(--muted2);
-    margin-top: 1px;
-  }
-  .header-controls {
-    display: flex;
-    align-items: center;
-    gap: 5px;
-    flex-shrink: 0;
-  }
+  .toc{list-style:none}
+  .toc li[hidden]{display:none}
+  .toc a{display:grid;grid-template-columns:20px minmax(0,1fr) auto;gap:9px;align-items:baseline;
+    padding:5px 0;color:var(--mut);text-decoration:none;line-height:1.35;transition:color .15s}
+  .toc a:hover{color:var(--ink)}
+  .toc .n{font-size:10px;font-variant-numeric:tabular-nums;color:var(--mut-2);letter-spacing:.04em}
+  .toc .t{min-width:0}
+  .toc .c{font-size:10px;color:var(--mut-2);font-variant-numeric:tabular-nums}
+  .toc a.active{color:var(--ink)}
+  .toc a.active .t{font-weight:500}
+  .toc a.complete .c{color:var(--accent)}
+  .toc a[data-accent="purple"] .n{color:var(--purple)}
+  .toc a[data-accent="blue"] .n{color:var(--blue)}
+  .toc a[data-accent="accent"] .n{color:var(--accent)}
+  .toc a[data-accent="amber"] .n{color:var(--amber)}
+  .toc a[data-accent="red"] .n{color:var(--red)}
 
-  /* Theme toggle button */
-  .theme-btn {
-    width: 30px;
-    height: 30px;
-    border-radius: 50%;
-    border: 1px solid var(--border2);
-    background: var(--bg3);
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 14px;
-    transition: all 0.15s;
-    flex-shrink: 0;
-    line-height: 1;
-  }
-  .theme-btn:active { opacity: 0.6; transform: scale(0.9); }
+  .switch-row{display:flex;align-items:center;justify-content:space-between;gap:12px;cursor:pointer;
+    color:var(--mut);transition:color .15s}
+  .switch-row:hover{color:var(--ink)}
+  .switch-row .toggle-track{width:38px;height:20px;flex:0 0 auto;position:relative;
+    background:var(--paper-3);border:1px solid var(--rule-2);border-radius:2px;
+    transition:background .2s,border-color .2s}
+  .switch-row .toggle-knob{position:absolute;top:2px;left:2px;width:14px;height:14px;
+    background:var(--mut-2);transition:transform .2s,background .2s}
+  .switch-row.on{color:var(--ink)}
+  .switch-row.on .toggle-track{background:var(--accent);border-color:var(--accent)}
+  .switch-row.on .toggle-knob{transform:translateX(18px);background:var(--on-accent)}
+  .rail-actions{display:flex;flex-wrap:wrap;gap:7px;margin-top:14px}
+  .btn-sm{font-family:var(--sans);font-size:11px;letter-spacing:.02em;color:var(--mut);cursor:pointer;
+    background:transparent;border:1px solid var(--rule-2);border-radius:2px;padding:6px 10px;
+    transition:color .15s,background .15s,border-color .15s}
+  .btn-sm:hover{color:var(--ink);background:var(--paper-3);border-color:var(--mut-2)}
+  .rail-note{font-family:var(--serif);font-size:12px;font-style:italic;line-height:1.5;color:var(--mut-2);
+    padding-top:15px;border-top:1px solid var(--rule)}
 
-  .btn-sm {
-    background: var(--bg3);
-    border: 1px solid var(--border2);
-    color: var(--muted);
-    font-family: 'DM Sans', sans-serif;
-    font-size: 10px;
-    padding: 4px 9px;
-    border-radius: 20px;
-    cursor: pointer;
-    white-space: nowrap;
-    transition: all 0.15s;
-  }
-  .btn-sm:active { opacity: 0.6; transform: scale(0.96); }
+  /* ── SHEET (main column) ────────────────────────────────── */
+  .sheet{padding:38px 0 96px;min-width:0}
+  .masthead{border-bottom:1px solid var(--rule-2);padding-bottom:26px}
+  .masthead-kicker{font-size:9.5px;font-weight:500;text-transform:uppercase;letter-spacing:.18em;color:var(--mut-2)}
+  .masthead h1{font-family:var(--serif);font-size:clamp(31px,3.6vw,46px);font-weight:500;
+    letter-spacing:-.025em;line-height:1.06;margin-top:11px}
+  .masthead p{font-family:var(--serif);font-size:16.5px;line-height:1.55;color:var(--ink-2);
+    max-width:58ch;margin-top:13px}
+  .masthead-meta{display:flex;flex-wrap:wrap;gap:5px 20px;margin-top:19px;
+    font-size:9.5px;text-transform:uppercase;letter-spacing:.15em;color:var(--mut-2)}
 
-  /* Row 2: RPh toggle + progress inline */
-  .header-row2 {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-  }
-  .rph-toggle-row {
-    display: flex;
-    align-items: center;
-    gap: 6px;
-    padding: 4px 8px;
-    background: var(--bg3);
-    border-radius: 20px;
-    border: 1px solid var(--border);
-    flex-shrink: 0;
-  }
-  .rph-label { font-size: 11px; color: var(--muted); white-space: nowrap; }
-  .toggle-btn {
-    width: 34px;
-    height: 19px;
-    border-radius: 10px;
-    background: var(--bg4);
-    border: 1px solid var(--border2);
-    cursor: pointer;
-    position: relative;
-    transition: background 0.2s;
-    flex-shrink: 0;
-  }
-  .toggle-btn.on { background: var(--accent); border-color: var(--accent); }
-  .toggle-knob {
-    position: absolute;
-    top: 2px;
-    left: 2px;
-    width: 13px;
-    height: 13px;
-    border-radius: 50%;
-    background: var(--muted2);
-    transition: transform 0.2s, background 0.2s;
-  }
-  .toggle-btn.on .toggle-knob { transform: translateX(15px); background: var(--bg); }
+  /* ── PHASE ──────────────────────────────────────────────── */
+  .phase{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:11px;align-items:start;
+    padding-top:40px;scroll-margin-top:80px}
+  /* entries live in two independent stacks, so expanding one only moves what is
+     below it in its own column - never the other column or the next row */
+  .phase-col{display:flex;flex-direction:column;gap:11px;min-width:0}
+  .quest{order:calc(var(--i,0) + 1)}  /* keeps reading order when the columns flatten */
+  .phase:first-of-type{padding-top:26px}
+  .phase-head{grid-column:1/-1;display:flex;align-items:baseline;flex-wrap:wrap;gap:4px 13px;
+    padding-bottom:11px;border-bottom:1px solid var(--rule-2);margin-bottom:5px}
+  .phase-num{font-family:var(--serif);font-size:14px;font-weight:600;font-variant-numeric:tabular-nums}
+  .phase-num[data-accent="purple"]{color:var(--purple)}
+  .phase-num[data-accent="blue"]{color:var(--blue)}
+  .phase-num[data-accent="accent"]{color:var(--accent)}
+  .phase-num[data-accent="amber"]{color:var(--amber)}
+  .phase-num[data-accent="red"]{color:var(--red)}
+  .phase-num[data-accent="gray"]{color:var(--mut-2)}
+  .phase-name{font-family:var(--serif);font-size:20px;font-weight:500;letter-spacing:-.015em;
+    line-height:1.2;flex:1;min-width:0}
+  .phase-count{font-size:10px;letter-spacing:.12em;color:var(--mut-2);font-variant-numeric:tabular-nums}
+  .phase-hint{font-family:var(--serif);font-style:italic;font-size:12.5px;color:var(--mut-2)}
 
-  /* Progress inline */
-  .progress-wrap { flex: 1; display: flex; align-items: center; gap: 7px; min-width: 0; }
-  .progress-track {
-    flex: 1;
-    height: 10px;
-    background: var(--bg4);
-    border-radius: 10px;
-    overflow: hidden;
-    min-width: 40px;
-  }
-  .progress-fill {
-    height: 100%;
-    background: var(--accent);
-    border-radius: 4px;
-    transition: width 0.4s cubic-bezier(0.34,1.56,0.64,1);
-    box-shadow: 0 0 6px var(--accent-glow);
-  }
-  .progress-label {
-    font-size: 11px;
-    color: var(--muted);
-    white-space: nowrap;
-    font-variant-numeric: tabular-nums;
-    flex-shrink: 0;
-  }
+  /* ── ENTRY (quest card) ─────────────────────────────────── */
+  .quest{background:var(--paper-2);border:1px solid var(--rule);border-radius:var(--radius);
+    box-shadow:var(--shadow);transition:border-color .18s,background .18s,opacity .18s}
+  .quest:hover{border-color:var(--rule-2)}
+  .quest.done{background:var(--gray-bg);opacity:.78}
+  .quest-head{display:grid;grid-template-columns:auto minmax(0,1fr) auto;gap:12px;
+    align-items:start;padding:14px 16px;cursor:pointer;-webkit-user-select:none;user-select:none}
+  .quest-content{min-width:0}
+  .quest-title{font-family:var(--serif);font-size:15.5px;font-weight:500;line-height:1.35;
+    letter-spacing:-.008em;transition:color .18s}
+  .enum{font-family:var(--sans);font-size:10.5px;font-weight:500;color:var(--mut-2);
+    letter-spacing:.06em;margin-right:8px;font-variant-numeric:tabular-nums}
+  .quest.done .quest-title{color:var(--mut);text-decoration:line-through;
+    text-decoration-color:var(--rule-2);text-decoration-thickness:1px}
+  .quest.done .enum{color:var(--rule-2)}
+  .quest-tags{display:flex;flex-wrap:wrap;gap:5px;margin-top:8px}
+  .tag{font-size:9px;font-weight:500;letter-spacing:.13em;text-transform:uppercase;
+    padding:2.5px 6px;border-radius:2px}
+  .tag-daily{background:var(--accent-bg);color:var(--accent)}
+  .tag-once{background:var(--blue-bg);color:var(--blue)}
+  .tag-weekly{background:var(--amber-bg);color:var(--amber)}
+  .tag-urgent{background:var(--red-bg);color:var(--red)}
+  .tag-rph{background:var(--purple-bg);color:var(--purple)}
 
-  /* ── BODY ── */
-  .body { padding: 0 12px 100px; }
+  .checkbox{width:17px;height:17px;flex:0 0 auto;margin-top:2px;border:1.5px solid var(--rule-2);
+    border-radius:2px;background:var(--paper-2);display:grid;place-items:center;cursor:pointer;
+    transition:background .18s,border-color .18s,transform .18s}
+  .checkbox:hover{border-color:var(--mut-2)}
+  .checkbox.checked{background:var(--accent);border-color:var(--accent)}
+  .checkbox.checked::after{content:"";width:4px;height:8px;border:1.8px solid var(--on-accent);
+    border-top:0;border-left:0;transform:rotate(45deg) translate(-1px,-1px)}
+  @keyframes pop{0%{transform:scale(1)}45%{transform:scale(1.28)}100%{transform:scale(1)}}
+  .pop{animation:pop .26s ease}
 
-  /* PHASE HEADER */
-  .phase-wrap {
-    padding: 20px 4px 7px;
-    display: flex;
-    align-items: center;
-    gap: 7px;
-    flex-wrap: wrap;
-  }
-  .phase-pill {
-    font-family: 'Syne', sans-serif;
-    font-size: 9px;
-    font-weight: 700;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    padding: 3px 8px;
-    border-radius: 20px;
-    flex-shrink: 0;
-  }
-  .phase-name {
-    font-family: 'Syne', sans-serif;
-    font-size: 14px;
-    font-weight: 700;
-    color: var(--text);
-    flex: 1;
-  }
-  .phase-hint { font-size: 10px; color: var(--muted2); }
+  .chevron{width:14px;height:14px;flex:0 0 auto;margin-top:3px;position:relative;font-size:0;
+    opacity:.42;color:var(--ink);transition:opacity .18s}
+  .quest-head:hover .chevron{opacity:.85}
+  .chevron::before,.chevron::after{content:"";position:absolute;background:currentColor;
+    transition:transform .25s,opacity .25s}
+  .chevron::before{left:0;top:6.5px;width:14px;height:1.5px}
+  .chevron::after{top:0;left:6.5px;width:1.5px;height:14px}
+  .quest.open .chevron::after{transform:scaleY(0);opacity:0}
 
-  /* QUEST CARD */
-  .quest {
-    background: var(--bg2);
-    border: 1px solid var(--border);
-    border-radius: var(--radius);
-    margin-bottom: 7px;
-    overflow: hidden;
-    transition: border-color 0.2s, opacity 0.2s;
-    box-shadow: var(--shadow);
-  }
-  .quest.done { opacity: 0.45; }
-  .quest.done .quest-title { text-decoration: line-through; color: var(--muted); }
-  .quest-head {
-    display: flex;
-    align-items: flex-start;
-    gap: 11px;
-    padding: 11px 12px 10px;
-    cursor: pointer;
-    user-select: none;
-    -webkit-user-select: none;
-  }
-  .quest-head:active { background: var(--bg3); }
+  /* 0fr → 1fr grid rows: no max-height ceiling, so long entries never clip */
+  .quest-body{display:grid;grid-template-rows:0fr;
+    transition:grid-template-rows .34s cubic-bezier(.4,0,.2,1)}
+  .quest.open .quest-body{grid-template-rows:1fr}
+  .quest-body-inner{overflow:hidden;min-height:0;padding:0 16px;border-top:1px solid transparent;
+    transition:padding .34s,border-color .34s}
+  .quest.open .quest-body-inner{padding:0 16px 16px;border-top-color:var(--rule)}
+  .quest-body-inner p{font-family:var(--serif);font-size:14.2px;line-height:1.6;color:var(--ink-2);margin-top:12px}
+  .quest-body-inner ul{margin-top:9px;padding-left:19px}
+  .quest-body-inner li{font-family:var(--serif);font-size:14.2px;line-height:1.58;color:var(--ink-2);margin-top:5px}
+  .quest-body-inner li::marker{color:var(--mut-2)}
+  .quest-body-inner p strong,.quest-body-inner li strong{color:var(--ink);font-weight:600}
 
-  .checkbox {
-    width: 20px;
-    height: 20px;
-    border-radius: 50%;
-    border: 1.5px solid var(--border2);
-    flex-shrink: 0;
-    margin-top: 1px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: all 0.2s;
-    cursor: pointer;
-  }
-  .checkbox.checked {
-    background: var(--accent);
-    border-color: var(--accent);
-    box-shadow: 0 0 8px var(--accent-glow);
-  }
-  .checkbox.checked::after {
-    content: '';
-    display: block;
-    width: 5px;
-    height: 9px;
-    border: 2px solid var(--bg);
-    border-top: none;
-    border-left: none;
-    transform: rotate(45deg) translateY(-1px);
-  }
+  /* notes → marginalia */
+  .note{margin-top:13px;padding:1px 0 1px 13px;border-left:2px solid var(--rule-2);
+    font-family:var(--serif);font-size:13.4px;font-style:italic;line-height:1.5;color:var(--ink-2)}
+  .note::before{content:"Note";display:block;font-family:var(--sans);font-style:normal;font-size:9px;
+    font-weight:600;letter-spacing:.17em;text-transform:uppercase;color:var(--mut-2);margin-bottom:3px}
+  .note strong{font-style:normal}
+  .note.blue{border-left-color:var(--blue)}
+  .note.blue::before{content:"Advisory";color:var(--blue)}
+  .note.amber{border-left-color:var(--amber)}
+  .note.amber::before{content:"Watch out";color:var(--amber)}
+  .note.red{border-left-color:var(--red)}
+  .note.red::before{content:"Caution";color:var(--red)}
 
-  .quest-content { flex: 1; min-width: 0; }
-  .quest-title {
-    font-size: 13.5px;
-    font-weight: 500;
-    color: var(--text);
-    line-height: 1.4;
-    transition: color 0.2s;
-  }
-  .quest-tags { display: flex; flex-wrap: wrap; gap: 4px; margin-top: 5px; }
-  .tag {
-    font-size: 10px;
-    font-weight: 500;
-    padding: 2px 7px;
-    border-radius: 20px;
-    letter-spacing: 0.02em;
-  }
-  .tag-daily   { background: var(--accent-dim); color: var(--accent); }
-  .tag-once    { background: var(--blue-dim); color: var(--blue); }
-  .tag-weekly  { background: var(--amber-dim); color: var(--amber); }
-  .tag-urgent  { background: var(--red-dim); color: var(--red); }
-  .tag-rph     { background: var(--purple-dim); color: var(--purple); }
+  /* ── COLOPHON ───────────────────────────────────────────── */
+  .colophon{display:flex;flex-wrap:wrap;gap:6px 22px;justify-content:space-between;
+    margin-top:54px;padding-top:18px;border-top:1px solid var(--rule-2);
+    font-size:9.5px;text-transform:uppercase;letter-spacing:.14em;color:var(--mut-2)}
 
-  .chevron {
-    font-size: 9px;
-    color: var(--muted2);
-    flex-shrink: 0;
-    margin-top: 5px;
-    transition: transform 0.22s;
-  }
-  .quest.open .chevron { transform: rotate(180deg); }
+  ::-webkit-scrollbar{width:10px;height:10px}
+  ::-webkit-scrollbar-thumb{background:var(--rule-2);border:3px solid transparent;background-clip:content-box}
+  ::-webkit-scrollbar-track{background:transparent}
+  :focus-visible{outline:2px solid var(--accent);outline-offset:2px}
 
-  .quest-body {
-    max-height: 0;
-    overflow: hidden;
-    transition: max-height 0.35s cubic-bezier(0.4,0,0.2,1);
+  /* ── RESPONSIVE ─────────────────────────────────────────── */
+  @media(max-width:1000px){
+    .shell{grid-template-columns:minmax(0,1fr);gap:0}
+    .rail{position:static;padding-bottom:0}
+    .rail-toc{display:none}
+    .rail-block:first-child{padding-top:18px}
+    .prog-row{gap:15px}
+    .pct{font-size:31px}
+    .masthead{padding-bottom:20px}
+    .phase{padding-top:32px;grid-template-columns:minmax(0,1fr)}
+    .phase-col{display:contents}  /* one column: entries flow in reading order */
+    .colophon{margin-top:38px}
   }
-  .quest.open .quest-body { max-height: 700px; }
-  .quest-body-inner {
-    padding: 0 12px 12px 43px;
-    border-top: 1px solid var(--border);
+  @media(max-width:640px){
+    body{font-size:14px}
+    .topbar .row{padding:10px 16px;gap:10px}
+    .shell{padding:0 16px}
+    .sheet{padding:20px 0 64px}
+    .rail-label{display:none}
+    .rail-block{padding:11px 0}
+    .rail-block:first-child{padding-top:14px}
+    .rail-scope{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:10px}
+    .rail-actions{margin-top:0}
+    .masthead h1{font-size:29px}
+    .masthead p{font-size:15px;margin-top:11px}
+    .masthead-meta{gap:4px 16px;margin-top:15px}
+    .phase-name{font-size:18px}
+    .phase-hint{display:none}
+    .quest-head{padding:13px;gap:11px}
+    .quest-body-inner{padding:0 13px}
+    .quest.open .quest-body-inner{padding:0 13px 14px}
+    .quest-title{font-size:15px}
+    .rail-note{display:none}
+    .colophon{justify-content:flex-start}
   }
-  .quest-body-inner p {
-    font-size: 13px;
-    color: var(--muted);
-    line-height: 1.65;
-    margin-top: 10px;
+  @media print{
+    .topbar,.rail,.chevron,.colophon{display:none}
+    .shell{display:block;max-width:none;padding:0}
+    .phase{display:grid;grid-template-columns:minmax(0,1fr);padding-top:20px}
+    .phase-col{display:contents}
+    .phase-head{grid-column:auto}
+    .quest{break-inside:avoid;margin-top:8px}
+    .quest-body{grid-template-rows:1fr}
+    .quest-body-inner{overflow:visible}
   }
-  .quest-body-inner ul { margin-top: 8px; padding-left: 16px; }
-  .quest-body-inner li {
-    font-size: 13px;
-    color: var(--muted);
-    line-height: 1.8;
-  }
-  .quest-body-inner li strong,
-  .quest-body-inner p strong { color: var(--text); font-weight: 500; }
-  .note {
-    margin-top: 10px;
-    padding: 8px 11px;
-    background: var(--bg4);
-    border-radius: var(--radius-sm);
-    border-left: 2px solid var(--accent);
-    font-size: 12px;
-    color: var(--muted);
-    line-height: 1.6;
-  }
-  .note.blue { border-left-color: var(--blue); }
-  .note.amber { border-left-color: var(--amber); }
-  .note.red { border-left-color: var(--red); }
-
-  /* DIVIDER */
-  .divider { height: 1px; background: var(--border); margin: 4px 0 0; }
-
-  /* FOOTER */
-  .footer {
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    background: var(--footer-bg);
-    backdrop-filter: blur(16px);
-    border-top: 1px solid var(--border);
-    padding: 10px 16px 18px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 10px;
-  }
-  .footer-text { font-size: 10px; color: var(--muted2); line-height: 1.4; }
-  .footer-text strong { color: var(--muted); font-weight: 500; }
-
-  /* POP ANIM */
-  @keyframes pop { 0%{transform:scale(1)} 50%{transform:scale(1.4)} 100%{transform:scale(1)} }
-  .pop { animation: pop 0.28s ease; }
-
-  /* SCROLLBAR */
-  ::-webkit-scrollbar { width: 3px; }
-  ::-webkit-scrollbar-track { background: transparent; }
-  ::-webkit-scrollbar-thumb { background: var(--bg4); border-radius: 4px; }
 </style>
 </head>
 <body>
 
-<div class="header">
-  <!-- Row 1: Title + controls -->
-  <div class="header-row1">
-    <div class="header-title-block">
-      <div class="header-title">PH Pharmacy Setup Guide</div>
-      <div class="header-sub">Philippines · Step-by-step quest board</div>
+<div class="topbar">
+  <div class="row">
+    <div class="monogram" aria-hidden="true">PH</div>
+    <div class="brand">
+      <div class="brand-title">PH Pharmacy Setup Guide</div>
+      <div class="brand-sub">Philippines &middot; Step-by-step quest board</div>
     </div>
-    <div class="header-controls">
-      <button class="theme-btn" id="theme-btn" onclick="toggleTheme()" title="Toggle theme">☀️</button>
+    <button class="theme-btn" id="theme-btn" onclick="toggleTheme()" title="Toggle light / dark">&#9788;</button>
+  </div>
+</div>
+
+<div class="shell">
+<aside class="rail">
+  <div class="rail-block">
+    <div class="rail-label">Progress</div>
+    <div class="prog-row">
+      <div class="pct" id="prog-pct">0%</div>
+      <div class="prog-meta">
+        <div class="progress-track"><div class="progress-fill" id="prog"></div></div>
+        <div class="progress-label" id="prog-label">0 / 0 entries</div>
+      </div>
+    </div>
+  </div>
+  <nav class="rail-block rail-toc" aria-label="Phases">
+    <div class="rail-label">Contents</div>
+    <ul class="toc" id="toc"></ul>
+  </nav>
+  <div class="rail-block rail-scope">
+    <div class="rail-label">Scope</div>
+    <div class="switch-row" id="rph-toggle" role="switch" tabindex="0" aria-checked="false"
+         onclick="toggleRph()"
+         onkeydown="if(event.key===' '||event.key==='Enter'){event.preventDefault();toggleRph()}">
+      <span>I&rsquo;m a licensed RPh</span>
+      <span class="toggle-track"><span class="toggle-knob"></span></span>
+    </div>
+    <div class="rail-actions">
       <button class="btn-sm" onclick="resetDay()">Reset daily</button>
       <button class="btn-sm" onclick="resetAll()">Reset all</button>
     </div>
   </div>
-  <!-- Row 2: RPh toggle + progress -->
-  <div class="header-row2">
-    <div class="rph-toggle-row">
-      <span class="rph-label">I'm a licensed RPh</span>
-      <button class="toggle-btn" id="rph-toggle" onclick="toggleRph()">
-        <span class="toggle-knob"></span>
-      </button>
-    </div>
-    <div class="progress-wrap">
-      <div class="progress-track"><div class="progress-fill" id="prog"></div></div>
-      <div class="progress-label" id="prog-label">0 / 0</div>
-    </div>
+  <div class="rail-note">Progress is saved in this browser only &mdash; no account, no server.</div>
+</aside>
+<main class="sheet">
+<header class="masthead">
+  <div class="masthead-kicker">Community pharmacy &middot; Philippines</div>
+  <h1>Establishment Dossier</h1>
+  <p>A sequenced checklist for opening a community pharmacy &mdash; licensing, layout, and compliance.
+     Work the phases in order, and open any entry for the detail that step needs.</p>
+  <div class="masthead-meta">
+    <span>PRC &middot; FDA (CDRR) &middot; DTI &middot; BIR &middot; LGU</span>
+    <span>Requirements current as of 2025&ndash;2026</span>
   </div>
-</div>
-
-<div class="body">
+</header>
 
   <!-- PHASE 0: PRE-LICENSE (conditional) -->
-  <div id="phase0-wrap">
-    <div class="phase-wrap">
-      <div class="phase-pill" style="background:var(--purple-dim);color:var(--purple);">Phase 0</div>
+  <section class="phase" id="phase0-wrap">
+    <div class="phase-head">
+      <div class="phase-num" data-accent="purple">00</div>
       <div class="phase-name">Before You Have a License</div>
       <div class="phase-hint">Skip if already licensed</div>
     </div>
 
     <div class="quest" id="q0a">
-      <div class="quest-head" onclick="toggleQuest('q0a')">
-        <div class="checkbox" id="cb-q0a" onclick="checkQuest(event,'q0a')"></div>
+      <div class="quest-head" role="button" tabindex="0" aria-expanded="false" onclick="toggleQuest('q0a')" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();toggleQuest('q0a')}">
+        <div class="checkbox" id="cb-q0a" role="checkbox" aria-checked="false" tabindex="0" onclick="checkQuest(event,'q0a')" onkeydown="if(event.key===' '||event.key==='Enter'){event.preventDefault();checkQuest(event,'q0a')}"></div>
         <div class="quest-content">
           <div class="quest-title">Understand the pharmacist-in-charge (PIC) requirement</div>
           <div class="quest-tags"><span class="tag tag-once">One-time</span></div>
@@ -461,8 +376,8 @@
     </div>
 
     <div class="quest" id="q0b">
-      <div class="quest-head" onclick="toggleQuest('q0b')">
-        <div class="checkbox" id="cb-q0b" onclick="checkQuest(event,'q0b')"></div>
+      <div class="quest-head" role="button" tabindex="0" aria-expanded="false" onclick="toggleQuest('q0b')" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();toggleQuest('q0b')}">
+        <div class="checkbox" id="cb-q0b" role="checkbox" aria-checked="false" tabindex="0" onclick="checkQuest(event,'q0b')" onkeydown="if(event.key===' '||event.key==='Enter'){event.preventDefault();checkQuest(event,'q0b')}"></div>
         <div class="quest-content">
           <div class="quest-title">Budget for PIC salary if hiring an RPh</div>
           <div class="quest-tags"><span class="tag tag-once">One-time</span></div>
@@ -479,20 +394,19 @@
         <div class="note amber">Factor this into your working capital from day one. Not having a PIC lined up before opening is a common mistake that delays launches.</div>
       </div></div>
     </div>
-  </div>
-
-  <div class="divider"></div>
+  </section>
 
   <!-- PHASE 1: LOCATION -->
-  <div class="phase-wrap">
-    <div class="phase-pill" style="background:var(--blue-dim);color:var(--blue);">Phase 1</div>
-    <div class="phase-name">Location Scouting</div>
-    <div class="phase-hint">Until a space is locked</div>
-  </div>
+
+  <section class="phase" id="p1">  <div class="phase-head">
+      <div class="phase-num" data-accent="blue">01</div>
+      <div class="phase-name">Location Scouting</div>
+      <div class="phase-hint">Until a space is locked</div>
+    </div>
 
   <div class="quest" id="q1a">
-    <div class="quest-head" onclick="toggleQuest('q1a')">
-      <div class="checkbox" id="cb-q1a" onclick="checkQuest(event,'q1a')"></div>
+    <div class="quest-head" role="button" tabindex="0" aria-expanded="false" onclick="toggleQuest('q1a')" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();toggleQuest('q1a')}">
+      <div class="checkbox" id="cb-q1a" role="checkbox" aria-checked="false" tabindex="0" onclick="checkQuest(event,'q1a')" onkeydown="if(event.key===' '||event.key==='Enter'){event.preventDefault();checkQuest(event,'q1a')}"></div>
       <div class="quest-content">
         <div class="quest-title">Scout your target area for viable commercial spaces</div>
         <div class="quest-tags"><span class="tag tag-daily">Daily</span><span class="tag tag-urgent">High priority</span></div>
@@ -513,8 +427,8 @@
   </div>
 
   <div class="quest" id="q1b">
-    <div class="quest-head" onclick="toggleQuest('q1b')">
-      <div class="checkbox" id="cb-q1b" onclick="checkQuest(event,'q1b')"></div>
+    <div class="quest-head" role="button" tabindex="0" aria-expanded="false" onclick="toggleQuest('q1b')" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();toggleQuest('q1b')}">
+      <div class="checkbox" id="cb-q1b" role="checkbox" aria-checked="false" tabindex="0" onclick="checkQuest(event,'q1b')" onkeydown="if(event.key===' '||event.key==='Enter'){event.preventDefault();checkQuest(event,'q1b')}"></div>
       <div class="quest-content">
         <div class="quest-title">Check Facebook Marketplace and OLX for commercial spaces for rent</div>
         <div class="quest-tags"><span class="tag tag-daily">Daily</span></div>
@@ -534,8 +448,8 @@
   </div>
 
   <div class="quest" id="q1c">
-    <div class="quest-head" onclick="toggleQuest('q1c')">
-      <div class="checkbox" id="cb-q1c" onclick="checkQuest(event,'q1c')"></div>
+    <div class="quest-head" role="button" tabindex="0" aria-expanded="false" onclick="toggleQuest('q1c')" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();toggleQuest('q1c')}">
+      <div class="checkbox" id="cb-q1c" role="checkbox" aria-checked="false" tabindex="0" onclick="checkQuest(event,'q1c')" onkeydown="if(event.key===' '||event.key==='Enter'){event.preventDefault();checkQuest(event,'q1c')}"></div>
       <div class="quest-content">
         <div class="quest-title">Log every space you find in a running tracker</div>
         <div class="quest-tags"><span class="tag tag-daily">Daily</span></div>
@@ -557,8 +471,8 @@
   </div>
 
   <div class="quest" id="q1d">
-    <div class="quest-head" onclick="toggleQuest('q1d')">
-      <div class="checkbox" id="cb-q1d" onclick="checkQuest(event,'q1d')"></div>
+    <div class="quest-head" role="button" tabindex="0" aria-expanded="false" onclick="toggleQuest('q1d')" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();toggleQuest('q1d')}">
+      <div class="checkbox" id="cb-q1d" role="checkbox" aria-checked="false" tabindex="0" onclick="checkQuest(event,'q1d')" onkeydown="if(event.key===' '||event.key==='Enter'){event.preventDefault();checkQuest(event,'q1d')}"></div>
       <div class="quest-content">
         <div class="quest-title">Verify zoning for any shortlisted space</div>
         <div class="quest-tags"><span class="tag tag-once">One-time per space</span></div>
@@ -576,8 +490,8 @@
   </div>
 
   <div class="quest" id="q1e">
-    <div class="quest-head" onclick="toggleQuest('q1e')">
-      <div class="checkbox" id="cb-q1e" onclick="checkQuest(event,'q1e')"></div>
+    <div class="quest-head" role="button" tabindex="0" aria-expanded="false" onclick="toggleQuest('q1e')" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();toggleQuest('q1e')}">
+      <div class="checkbox" id="cb-q1e" role="checkbox" aria-checked="false" tabindex="0" onclick="checkQuest(event,'q1e')" onkeydown="if(event.key===' '||event.key==='Enter'){event.preventDefault();checkQuest(event,'q1e')}"></div>
       <div class="quest-content">
         <div class="quest-title">Physically visit and assess your top 1–2 spaces</div>
         <div class="quest-tags"><span class="tag tag-once">One-time per space</span></div>
@@ -599,18 +513,19 @@
     </div></div>
   </div>
 
-  <div class="divider"></div>
+  </section>
 
   <!-- PHASE 2: REGULATORY -->
-  <div class="phase-wrap">
-    <div class="phase-pill" style="background:var(--accent-dim);color:var(--accent);">Phase 2</div>
-    <div class="phase-name">Regulatory Requirements</div>
-    <div class="phase-hint">Run parallel to Phase 1</div>
-  </div>
+
+  <section class="phase" id="p2">  <div class="phase-head">
+      <div class="phase-num" data-accent="accent">02</div>
+      <div class="phase-name">Regulatory Requirements</div>
+      <div class="phase-hint">Run parallel to Phase 1</div>
+    </div>
 
   <div class="quest" id="q2a">
-    <div class="quest-head" onclick="toggleQuest('q2a')">
-      <div class="checkbox" id="cb-q2a" onclick="checkQuest(event,'q2a')"></div>
+    <div class="quest-head" role="button" tabindex="0" aria-expanded="false" onclick="toggleQuest('q2a')" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();toggleQuest('q2a')}">
+      <div class="checkbox" id="cb-q2a" role="checkbox" aria-checked="false" tabindex="0" onclick="checkQuest(event,'q2a')" onkeydown="if(event.key===' '||event.key==='Enter'){event.preventDefault();checkQuest(event,'q2a')}"></div>
       <div class="quest-content">
         <div class="quest-title">Download and read the FDA LTO checklist for drugstores</div>
         <div class="quest-tags"><span class="tag tag-once">One-time</span></div>
@@ -630,8 +545,8 @@
   </div>
 
   <div class="quest" id="q2b">
-    <div class="quest-head" onclick="toggleQuest('q2b')">
-      <div class="checkbox" id="cb-q2b" onclick="checkQuest(event,'q2b')"></div>
+    <div class="quest-head" role="button" tabindex="0" aria-expanded="false" onclick="toggleQuest('q2b')" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();toggleQuest('q2b')}">
+      <div class="checkbox" id="cb-q2b" role="checkbox" aria-checked="false" tabindex="0" onclick="checkQuest(event,'q2b')" onkeydown="if(event.key===' '||event.key==='Enter'){event.preventDefault();checkQuest(event,'q2b')}"></div>
       <div class="quest-content">
         <div class="quest-title">Register your business name with DTI</div>
         <div class="quest-tags"><span class="tag tag-once">One-time</span></div>
@@ -651,8 +566,8 @@
   </div>
 
   <div class="quest" id="q2c">
-    <div class="quest-head" onclick="toggleQuest('q2c')">
-      <div class="checkbox" id="cb-q2c" onclick="checkQuest(event,'q2c')"></div>
+    <div class="quest-head" role="button" tabindex="0" aria-expanded="false" onclick="toggleQuest('q2c')" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();toggleQuest('q2c')}">
+      <div class="checkbox" id="cb-q2c" role="checkbox" aria-checked="false" tabindex="0" onclick="checkQuest(event,'q2c')" onkeydown="if(event.key===' '||event.key==='Enter'){event.preventDefault();checkQuest(event,'q2c')}"></div>
       <div class="quest-content">
         <div class="quest-title">Compile your master documents folder</div>
         <div class="quest-tags"><span class="tag tag-once">One-time</span></div>
@@ -675,8 +590,8 @@
   </div>
 
   <div class="quest" id="q2d">
-    <div class="quest-head" onclick="toggleQuest('q2d')">
-      <div class="checkbox" id="cb-q2d" onclick="checkQuest(event,'q2d')"></div>
+    <div class="quest-head" role="button" tabindex="0" aria-expanded="false" onclick="toggleQuest('q2d')" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();toggleQuest('q2d')}">
+      <div class="checkbox" id="cb-q2d" role="checkbox" aria-checked="false" tabindex="0" onclick="checkQuest(event,'q2d')" onkeydown="if(event.key===' '||event.key==='Enter'){event.preventDefault();checkQuest(event,'q2d')}"></div>
       <div class="quest-content">
         <div class="quest-title">Secure LGU permits (once location is confirmed)</div>
         <div class="quest-tags"><span class="tag tag-once">One-time</span></div>
@@ -697,8 +612,8 @@
   </div>
 
   <div class="quest" id="q2e">
-    <div class="quest-head" onclick="toggleQuest('q2e')">
-      <div class="checkbox" id="cb-q2e" onclick="checkQuest(event,'q2e')"></div>
+    <div class="quest-head" role="button" tabindex="0" aria-expanded="false" onclick="toggleQuest('q2e')" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();toggleQuest('q2e')}">
+      <div class="checkbox" id="cb-q2e" role="checkbox" aria-checked="false" tabindex="0" onclick="checkQuest(event,'q2e')" onkeydown="if(event.key===' '||event.key==='Enter'){event.preventDefault();checkQuest(event,'q2e')}"></div>
       <div class="quest-content">
         <div class="quest-title">Register with BIR</div>
         <div class="quest-tags"><span class="tag tag-once">One-time</span></div>
@@ -719,8 +634,8 @@
   </div>
 
   <div class="quest" id="q2f">
-    <div class="quest-head" onclick="toggleQuest('q2f')">
-      <div class="checkbox" id="cb-q2f" onclick="checkQuest(event,'q2f')"></div>
+    <div class="quest-head" role="button" tabindex="0" aria-expanded="false" onclick="toggleQuest('q2f')" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();toggleQuest('q2f')}">
+      <div class="checkbox" id="cb-q2f" role="checkbox" aria-checked="false" tabindex="0" onclick="checkQuest(event,'q2f')" onkeydown="if(event.key===' '||event.key==='Enter'){event.preventDefault();checkQuest(event,'q2f')}"></div>
       <div class="quest-content">
         <div class="quest-title">Apply for FDA License to Operate (LTO)</div>
         <div class="quest-tags"><span class="tag tag-once">One-time</span><span class="tag tag-urgent">Critical gate</span></div>
@@ -740,18 +655,19 @@
     </div></div>
   </div>
 
-  <div class="divider"></div>
+  </section>
 
   <!-- PHASE 3: FRANCHISE DECISION -->
-  <div class="phase-wrap">
-    <div class="phase-pill" style="background:var(--amber-dim);color:var(--amber);">Phase 3</div>
-    <div class="phase-name">Franchise vs. Independent</div>
-    <div class="phase-hint">Decide before capital planning</div>
-  </div>
+
+  <section class="phase" id="p3">  <div class="phase-head">
+      <div class="phase-num" data-accent="amber">03</div>
+      <div class="phase-name">Franchise vs. Independent</div>
+      <div class="phase-hint">Decide before capital planning</div>
+    </div>
 
   <div class="quest" id="q3a">
-    <div class="quest-head" onclick="toggleQuest('q3a')">
-      <div class="checkbox" id="cb-q3a" onclick="checkQuest(event,'q3a')"></div>
+    <div class="quest-head" role="button" tabindex="0" aria-expanded="false" onclick="toggleQuest('q3a')" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();toggleQuest('q3a')}">
+      <div class="checkbox" id="cb-q3a" role="checkbox" aria-checked="false" tabindex="0" onclick="checkQuest(event,'q3a')" onkeydown="if(event.key===' '||event.key==='Enter'){event.preventDefault();checkQuest(event,'q3a')}"></div>
       <div class="quest-content">
         <div class="quest-title">Request franchise information packets from TGP and Generika</div>
         <div class="quest-tags"><span class="tag tag-once">One-time</span></div>
@@ -771,8 +687,8 @@
   </div>
 
   <div class="quest" id="q3b">
-    <div class="quest-head" onclick="toggleQuest('q3b')">
-      <div class="checkbox" id="cb-q3b" onclick="checkQuest(event,'q3b')"></div>
+    <div class="quest-head" role="button" tabindex="0" aria-expanded="false" onclick="toggleQuest('q3b')" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();toggleQuest('q3b')}">
+      <div class="checkbox" id="cb-q3b" role="checkbox" aria-checked="false" tabindex="0" onclick="checkQuest(event,'q3b')" onkeydown="if(event.key===' '||event.key==='Enter'){event.preventDefault();checkQuest(event,'q3b')}"></div>
       <div class="quest-content">
         <div class="quest-title">Make your franchise vs. independent decision</div>
         <div class="quest-tags"><span class="tag tag-once">One-time</span></div>
@@ -792,18 +708,19 @@
     </div></div>
   </div>
 
-  <div class="divider"></div>
+  </section>
 
   <!-- PHASE 4: CAPITAL -->
-  <div class="phase-wrap">
-    <div class="phase-pill" style="background:var(--red-dim);color:var(--red);">Phase 4</div>
-    <div class="phase-name">Capital Planning</div>
-    <div class="phase-hint">Before signing any lease</div>
-  </div>
+
+  <section class="phase" id="p4">  <div class="phase-head">
+      <div class="phase-num" data-accent="red">04</div>
+      <div class="phase-name">Capital Planning</div>
+      <div class="phase-hint">Before signing any lease</div>
+    </div>
 
   <div class="quest" id="q4a">
-    <div class="quest-head" onclick="toggleQuest('q4a')">
-      <div class="checkbox" id="cb-q4a" onclick="checkQuest(event,'q4a')"></div>
+    <div class="quest-head" role="button" tabindex="0" aria-expanded="false" onclick="toggleQuest('q4a')" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();toggleQuest('q4a')}">
+      <div class="checkbox" id="cb-q4a" role="checkbox" aria-checked="false" tabindex="0" onclick="checkQuest(event,'q4a')" onkeydown="if(event.key===' '||event.key==='Enter'){event.preventDefault();checkQuest(event,'q4a')}"></div>
       <div class="quest-content">
         <div class="quest-title">Build a full capital estimate spreadsheet</div>
         <div class="quest-tags"><span class="tag tag-once">One-time</span></div>
@@ -827,8 +744,8 @@
   </div>
 
   <div class="quest" id="q4b">
-    <div class="quest-head" onclick="toggleQuest('q4b')">
-      <div class="checkbox" id="cb-q4b" onclick="checkQuest(event,'q4b')"></div>
+    <div class="quest-head" role="button" tabindex="0" aria-expanded="false" onclick="toggleQuest('q4b')" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();toggleQuest('q4b')}">
+      <div class="checkbox" id="cb-q4b" role="checkbox" aria-checked="false" tabindex="0" onclick="checkQuest(event,'q4b')" onkeydown="if(event.key===' '||event.key==='Enter'){event.preventDefault();checkQuest(event,'q4b')}"></div>
       <div class="quest-content">
         <div class="quest-title">Identify and confirm your funding source</div>
         <div class="quest-tags"><span class="tag tag-once">One-time</span><span class="tag tag-urgent">Don't delay</span></div>
@@ -849,8 +766,8 @@
   </div>
 
   <div class="quest" id="q4c">
-    <div class="quest-head" onclick="toggleQuest('q4c')">
-      <div class="checkbox" id="cb-q4c" onclick="checkQuest(event,'q4c')"></div>
+    <div class="quest-head" role="button" tabindex="0" aria-expanded="false" onclick="toggleQuest('q4c')" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();toggleQuest('q4c')}">
+      <div class="checkbox" id="cb-q4c" role="checkbox" aria-checked="false" tabindex="0" onclick="checkQuest(event,'q4c')" onkeydown="if(event.key===' '||event.key==='Enter'){event.preventDefault();checkQuest(event,'q4c')}"></div>
       <div class="quest-content">
         <div class="quest-title">Source drug suppliers and get pricing lists</div>
         <div class="quest-tags"><span class="tag tag-once">One-time</span></div>
@@ -869,18 +786,19 @@
     </div></div>
   </div>
 
-  <div class="divider"></div>
+  </section>
 
   <!-- PHASE 5: SETUP -->
-  <div class="phase-wrap">
-    <div class="phase-pill" style="background:var(--gray-dim);color:var(--muted);">Phase 5</div>
-    <div class="phase-name">Physical Setup</div>
-    <div class="phase-hint">After lease is signed</div>
-  </div>
+
+  <section class="phase" id="p5">  <div class="phase-head">
+      <div class="phase-num" data-accent="gray">05</div>
+      <div class="phase-name">Physical Setup</div>
+      <div class="phase-hint">After lease is signed</div>
+    </div>
 
   <div class="quest" id="q5a">
-    <div class="quest-head" onclick="toggleQuest('q5a')">
-      <div class="checkbox" id="cb-q5a" onclick="checkQuest(event,'q5a')"></div>
+    <div class="quest-head" role="button" tabindex="0" aria-expanded="false" onclick="toggleQuest('q5a')" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();toggleQuest('q5a')}">
+      <div class="checkbox" id="cb-q5a" role="checkbox" aria-checked="false" tabindex="0" onclick="checkQuest(event,'q5a')" onkeydown="if(event.key===' '||event.key==='Enter'){event.preventDefault();checkQuest(event,'q5a')}"></div>
       <div class="quest-content">
         <div class="quest-title">Design and build out your pharmacy layout</div>
         <div class="quest-tags"><span class="tag tag-once">One-time</span></div>
@@ -902,8 +820,8 @@
   </div>
 
   <div class="quest" id="q5b">
-    <div class="quest-head" onclick="toggleQuest('q5b')">
-      <div class="checkbox" id="cb-q5b" onclick="checkQuest(event,'q5b')"></div>
+    <div class="quest-head" role="button" tabindex="0" aria-expanded="false" onclick="toggleQuest('q5b')" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();toggleQuest('q5b')}">
+      <div class="checkbox" id="cb-q5b" role="checkbox" aria-checked="false" tabindex="0" onclick="checkQuest(event,'q5b')" onkeydown="if(event.key===' '||event.key==='Enter'){event.preventDefault();checkQuest(event,'q5b')}"></div>
       <div class="quest-content">
         <div class="quest-title">Stock your initial inventory</div>
         <div class="quest-tags"><span class="tag tag-once">One-time</span></div>
@@ -924,8 +842,8 @@
   </div>
 
   <div class="quest" id="q5c">
-    <div class="quest-head" onclick="toggleQuest('q5c')">
-      <div class="checkbox" id="cb-q5c" onclick="checkQuest(event,'q5c')"></div>
+    <div class="quest-head" role="button" tabindex="0" aria-expanded="false" onclick="toggleQuest('q5c')" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();toggleQuest('q5c')}">
+      <div class="checkbox" id="cb-q5c" role="checkbox" aria-checked="false" tabindex="0" onclick="checkQuest(event,'q5c')" onkeydown="if(event.key===' '||event.key==='Enter'){event.preventDefault();checkQuest(event,'q5c')}"></div>
       <div class="quest-content">
         <div class="quest-title">Set up your POS, records system, and temperature logs</div>
         <div class="quest-tags"><span class="tag tag-once">One-time</span></div>
@@ -943,18 +861,19 @@
     </div></div>
   </div>
 
-  <div class="divider"></div>
+  </section>
 
   <!-- RECURRING -->
-  <div class="phase-wrap">
-    <div class="phase-pill" style="background:var(--gray-dim);color:var(--muted);">Ongoing</div>
-    <div class="phase-name">Weekly Check-ins</div>
-    <div class="phase-hint">Every 7 days</div>
-  </div>
+
+  <section class="phase" id="pw">  <div class="phase-head">
+      <div class="phase-num" data-accent="gray">&#10022;</div>
+      <div class="phase-name">Weekly Check-ins</div>
+      <div class="phase-hint">Every 7 days</div>
+    </div>
 
   <div class="quest" id="qw1">
-    <div class="quest-head" onclick="toggleQuest('qw1')">
-      <div class="checkbox" id="cb-qw1" onclick="checkQuest(event,'qw1')"></div>
+    <div class="quest-head" role="button" tabindex="0" aria-expanded="false" onclick="toggleQuest('qw1')" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();toggleQuest('qw1')}">
+      <div class="checkbox" id="cb-qw1" role="checkbox" aria-checked="false" tabindex="0" onclick="checkQuest(event,'qw1')" onkeydown="if(event.key===' '||event.key==='Enter'){event.preventDefault();checkQuest(event,'qw1')}"></div>
       <div class="quest-content">
         <div class="quest-title">Review your location tracker and update statuses</div>
         <div class="quest-tags"><span class="tag tag-weekly">Weekly</span></div>
@@ -973,8 +892,8 @@
   </div>
 
   <div class="quest" id="qw2">
-    <div class="quest-head" onclick="toggleQuest('qw2')">
-      <div class="checkbox" id="cb-qw2" onclick="checkQuest(event,'qw2')"></div>
+    <div class="quest-head" role="button" tabindex="0" aria-expanded="false" onclick="toggleQuest('qw2')" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();toggleQuest('qw2')}">
+      <div class="checkbox" id="cb-qw2" role="checkbox" aria-checked="false" tabindex="0" onclick="checkQuest(event,'qw2')" onkeydown="if(event.key===' '||event.key==='Enter'){event.preventDefault();checkQuest(event,'qw2')}"></div>
       <div class="quest-content">
         <div class="quest-title">Check for new FDA or LGU regulatory updates</div>
         <div class="quest-tags"><span class="tag tag-weekly">Weekly</span></div>
@@ -992,8 +911,8 @@
   </div>
 
   <div class="quest" id="qw3">
-    <div class="quest-head" onclick="toggleQuest('qw3')">
-      <div class="checkbox" id="cb-qw3" onclick="checkQuest(event,'qw3')"></div>
+    <div class="quest-head" role="button" tabindex="0" aria-expanded="false" onclick="toggleQuest('qw3')" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();toggleQuest('qw3')}">
+      <div class="checkbox" id="cb-qw3" role="checkbox" aria-checked="false" tabindex="0" onclick="checkQuest(event,'qw3')" onkeydown="if(event.key===' '||event.key==='Enter'){event.preventDefault();checkQuest(event,'qw3')}"></div>
       <div class="quest-content">
         <div class="quest-title">Follow up on any pending permit applications</div>
         <div class="quest-tags"><span class="tag tag-weekly">Weekly</span></div>
@@ -1012,13 +931,14 @@
     </div></div>
   </div>
 
-</div><!-- /body -->
+</section>
 
-<div class="footer">
-  <div class="footer-text">
-    <strong>PH Pharmacy Setup Guide</strong><br>
-    All data stays on this device only.
-  </div>
+<div class="colophon">
+  <span>PH Pharmacy Setup Guide</span>
+  <span>Progress stored on this device only</span>
+  <span>24 entries &middot; 7 phases</span>
+</div>
+</main>
 </div>
 
 <script>
@@ -1027,16 +947,14 @@
   const RPH_KEY   = 'pharma_gen_rph_v2';
   const THEME_KEY = 'pharma_gen_theme_v1';
 
-  const DAILY_IDS    = ['q1a','q1b','q1c','qw1','qw2','qw3'];
-  const URGENT_IDS   = ['q1a','q2f','q4b'];
-  const PRIORITY_IDS = [...new Set([...DAILY_IDS, ...URGENT_IDS])];
-  const NON_RPH_IDS  = ['q0a','q0b'];
+  const DAILY_IDS = ['q1a','q1b','q1c','qw1','qw2','qw3'];
 
-  let done  = JSON.parse(localStorage.getItem(DONE_KEY) || '[]');
-  let open  = JSON.parse(localStorage.getItem(OPEN_KEY) || '[]');
-  let isRph = localStorage.getItem(RPH_KEY) === 'true';
-  // Default to light mode
+  let done   = JSON.parse(localStorage.getItem(DONE_KEY) || '[]');
+  let open   = JSON.parse(localStorage.getItem(OPEN_KEY) || '[]');
+  let isRph  = localStorage.getItem(RPH_KEY) === 'true';
   let isDark = localStorage.getItem(THEME_KEY) === 'dark';
+
+  const el = id => document.getElementById(id);
 
   function save() {
     localStorage.setItem(DONE_KEY, JSON.stringify(done));
@@ -1045,54 +963,92 @@
     localStorage.setItem(THEME_KEY, isDark ? 'dark' : 'light');
   }
 
+  /* Number every entry (phase.entry) and build the contents list from the DOM. */
+  function buildIndex() {
+    const toc = el('toc');
+    document.querySelectorAll('section.phase').forEach((sec, si) => {
+      [...sec.querySelectorAll('.quest[id]')].forEach((quest, qi) => {
+        quest.querySelector('.quest-title').insertAdjacentHTML('afterbegin',
+          '<span class="enum">' + si + '.' + (qi + 1) + '</span>');
+      });
+
+      const head = sec.querySelector('.phase-head');
+      const count = document.createElement('div');
+      count.className = 'phase-count';
+      head.insertBefore(count, head.querySelector('.phase-hint'));
+
+      const link = document.createElement('a');
+      link.href = '#' + sec.id;
+      link.dataset.accent = sec.querySelector('.phase-num').dataset.accent || 'gray';
+      link.innerHTML = '<span class="n">' + String(si).padStart(2, '0') + '</span>' +
+                       '<span class="t">' + sec.querySelector('.phase-name').textContent + '</span>' +
+                       '<span class="c"></span>';
+      const li = document.createElement('li');
+      li.appendChild(link);
+      toc.appendChild(li);
+    });
+  }
+
   function updateProgress() {
-    const activeIds = PRIORITY_IDS.filter(id => isRph ? !NON_RPH_IDS.includes(id) : true);
-    const total = activeIds.length;
-    const count = activeIds.filter(id => done.includes(id)).length;
+    let total = 0, count = 0;
+    document.querySelectorAll('section.phase').forEach(sec => {
+      const hidden = sec.classList.contains('is-hidden');
+      const quests = [...sec.querySelectorAll('.quest[id]')];
+      const c = quests.filter(q => done.includes(q.id)).length;
+
+      const link = document.querySelector('.toc a[href="#' + sec.id + '"]');
+      if (link) {
+        link.parentElement.hidden = hidden;
+        link.querySelector('.c').textContent = hidden ? '' : c + '/' + quests.length;
+        link.classList.toggle('complete', !hidden && c === quests.length);
+      }
+      const badge = sec.querySelector('.phase-count');
+      if (badge) badge.textContent = hidden ? '' : c + ' / ' + quests.length;
+
+      if (!hidden) { total += quests.length; count += c; }
+    });
+
     const pct = total ? Math.round((count / total) * 100) : 0;
-    document.getElementById('prog').style.width = pct + '%';
-    document.getElementById('prog-label').textContent = count + ' / ' + total;
+    el('prog').style.width = pct + '%';
+    el('prog-pct').textContent = pct + '%';
+    el('prog-label').textContent = count + ' / ' + total + ' entries';
   }
 
   function applyTheme() {
     document.documentElement.setAttribute('data-theme', isDark ? 'dark' : 'light');
-    document.getElementById('theme-btn').textContent = isDark ? '🌙' : '☀️';
+    el('theme-btn').innerHTML = isDark ? '&#9790;' : '&#9788;';
   }
 
-  function toggleTheme() {
-    isDark = !isDark;
-    save();
-    applyTheme();
-  }
+  function toggleTheme() { isDark = !isDark; save(); applyTheme(); }
 
   function render() {
-    const phase0 = document.getElementById('phase0-wrap');
-    if (phase0) phase0.style.display = isRph ? 'none' : 'block';
+    const phase0 = el('phase0-wrap');
+    if (phase0) phase0.classList.toggle('is-hidden', isRph);
 
-    const btn = document.getElementById('rph-toggle');
-    if (btn) btn.classList.toggle('on', isRph);
+    const sw = el('rph-toggle');
+    sw.classList.toggle('on', isRph);
+    sw.setAttribute('aria-checked', isRph);
 
     document.querySelectorAll('.quest[id]').forEach(card => {
-      const id = card.id;
-      const cb = document.getElementById('cb-' + id);
-      card.classList.toggle('done', done.includes(id));
-      card.classList.toggle('open', open.includes(id));
-      if (cb) cb.classList.toggle('checked', done.includes(id));
+      const id = card.id, isDone = done.includes(id), isOpen = open.includes(id);
+      card.classList.toggle('done', isDone);
+      card.classList.toggle('open', isOpen);
+
+      const cb = el('cb-' + id);
+      if (cb) { cb.classList.toggle('checked', isDone); cb.setAttribute('aria-checked', isDone); }
+      const head = card.querySelector('.quest-head');
+      if (head) head.setAttribute('aria-expanded', isOpen);
     });
     updateProgress();
   }
 
-  function toggleRph() {
-    isRph = !isRph;
-    save();
-    render();
-  }
+  function toggleRph() { isRph = !isRph; save(); render(); }
 
   function checkQuest(e, id) {
     e.stopPropagation();
     done = done.includes(id) ? done.filter(x => x !== id) : [...done, id];
     if (done.includes(id)) {
-      const cb = document.getElementById('cb-' + id);
+      const cb = el('cb-' + id);
       if (cb) { cb.classList.add('pop'); setTimeout(() => cb.classList.remove('pop'), 300); }
     }
     save();
@@ -1119,9 +1075,47 @@
     render();
   }
 
-  // Init
+  /* Two independent entry stacks per phase, so expanding one entry only moves what
+     is below it in its own column. CSS flattens the stacks again (mobile, print,
+     no-JS reading order) with display:contents + the entry's --i order. */
+  const PHASES = [...document.querySelectorAll('section.phase')].map(sec => ({
+    sec: sec,
+    quests: [...sec.querySelectorAll('.quest[id]')]
+  }));
+
+  function buildColumns() {
+    PHASES.forEach(p => {
+      if (p.quests.length < 2) return;
+      p.quests.forEach((q, i) => q.style.setProperty('--i', i));
+      const cols = [0, 1].map(() => {
+        const col = document.createElement('div');
+        col.className = 'phase-col';
+        return col;
+      });
+      p.quests.forEach((q, i) => cols[i % 2].appendChild(q));
+      p.sec.append(cols[0], cols[1]);
+    });
+  }
+
+  /* Highlight the phase currently being read in the contents list. */
+  function watchSections() {
+    if (!('IntersectionObserver' in window)) return;
+    const io = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (!entry.isIntersecting) return;
+        const href = '#' + entry.target.id;
+        document.querySelectorAll('.toc a')
+          .forEach(a => a.classList.toggle('active', a.getAttribute('href') === href));
+      });
+    }, { rootMargin: '-72px 0px -68% 0px' });
+    document.querySelectorAll('section.phase').forEach(s => io.observe(s));
+  }
+
+  buildIndex();
+  buildColumns();
   applyTheme();
   render();
+  watchSections();
 </script>
 </body>
 </html>
