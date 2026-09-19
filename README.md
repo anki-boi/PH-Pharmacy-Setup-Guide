@@ -4,6 +4,8 @@ A single-page checklist for opening a community pharmacy in the Philippines — 
 
 **[Open the guide →](https://anki-boi.github.io/PH-Pharmacy-Setup-Guide/)**
 
+**→ [Why it exists: the three ways long-horizon setups fail, and what this does about it](PROBLEMS.md)**
+
 ![Desktop, light theme](screenshots/desktop-light.webp)
 ![Desktop, dark theme](screenshots/desktop-dark.webp)
 
